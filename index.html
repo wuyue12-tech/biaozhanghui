@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>向九年级出发｜成长表彰暨九年级入境仪式</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="app" class="app">
+      <main id="stage" class="stage" aria-live="polite"></main>
+      <div id="progress" class="progress" aria-hidden="true"></div>
+      <div id="blackout" class="blackout" hidden></div>
+      <aside id="menu" class="menu" hidden>
+        <div class="menu-panel">
+          <div class="menu-head">
+            <div>
+              <p class="menu-kicker">环节菜单</p>
+              <h2>快速跳转</h2>
+            </div>
+            <button id="menuClose" class="menu-close" type="button" aria-label="关闭菜单">×</button>
+          </div>
+          <div id="menuList" class="menu-list"></div>
+        </div>
+      </aside>
+    </div>
+
+    <script src="data.js"></script>
+    <script src="game-data.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
