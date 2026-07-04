@@ -1,6 +1,7 @@
 (function () {
   const data = window.EVENT_DATA;
   const stage = document.getElementById("stage");
+  const transitionTrail = document.getElementById("transitionTrail");
   const progress = document.getElementById("progress");
   const blackout = document.getElementById("blackout");
   const menu = document.getElementById("menu");
@@ -12,12 +13,21 @@
     gameStage: 0,
     black: false,
     menuOpen: false,
-    transitioning: false
+    transitioning: false,
+    autoTimer: null
   };
 
   const transitionTiming = {
-    leave: 380,
-    enter: 700
+    leave: 650,
+    enter: 980
+  };
+
+  const audioState = {
+    ctx: null,
+    current: null,
+    mode: null,
+    pendingMode: null,
+    enabled: false
   };
 
   const slides = buildSlides(data);
@@ -123,13 +133,16 @@
   function renderSlide(motionClass = "is-entering") {
     const slide = slides[state.index];
     state.gameStage = slide.kind === "game-question" ? state.gameStage : 0;
-    stage.className = `stage ${slide.kind} ${slide.kind === "game-question" ? `game-stage-${state.gameStage}` : ""} ${motionClass}`;
+    clearAutoAdvance();
+    const gameClass = slide.kind === "game-question" ? getGameClass(slide) : "";
+    stage.className = `stage ${slide.kind} ${gameClass} ${motionClass}`;
     stage.innerHTML = "";
     addAtmosphere();
 
     const renderers = {
       opening: renderOpening,
       warmup: renderWarmup,
+      breath: renderBreath,
       "award-title": renderAwardTitle,
       "award-list": renderAwardList,
       performance: renderPerformance,
@@ -144,9 +157,17 @@
     renderers[slide.kind](slide);
     updateProgress();
     syncMenuActive();
+    scheduleMusicForSlide(slide);
     if (motionClass === "is-entering") {
       requestAnimationFrame(() => stage.classList.add("is-active"));
       window.setTimeout(() => stage.classList.remove("is-entering"), transitionTiming.enter);
+    }
+    if (slide.kind === "breath") {
+      state.autoTimer = window.setTimeout(() => {
+        if (!state.menuOpen && !state.black && !state.transitioning && slides[state.index]?.kind === "breath") {
+          next();
+        }
+      }, 1450);
     }
   }
 
@@ -204,6 +225,15 @@
     safe.appendChild(textEl("p", "subhead", item.subtitle));
   }
 
+  function renderBreath(slide) {
+    const item = slide.source;
+    const safe = safeWrap();
+    safe.appendChild(textEl("div", "topline", "章节"));
+    safe.appendChild(textEl("h1", "headline", item.title));
+    if (item.subtitle) safe.appendChild(textEl("p", "subhead", item.subtitle));
+    stage.appendChild(el("div", "star-lights"));
+  }
+
   function renderAwardTitle(slide) {
     const item = slide.source;
     stage.appendChild(el("div", "award-glow"));
@@ -228,7 +258,11 @@
     safe.appendChild(head);
 
     if (slide.page.groups) {
-      renderGroups(safe, slide.page.groups);
+      if (item.title === "飞跃奖与学科突破奖") {
+        renderBreakthroughGroups(safe, slide.page.groups);
+      } else {
+        renderGroups(safe, slide.page.groups);
+      }
       return;
     }
 
@@ -258,6 +292,28 @@
       grid.appendChild(card);
     });
     container.appendChild(grid);
+  }
+
+  function renderBreakthroughGroups(container, groups) {
+    const layout = el("section", "breakthrough-layout");
+    const leap = groups.find((group) => group.label === "飞跃奖");
+    const subjects = groups.filter((group) => group.label !== "飞跃奖");
+    if (leap) {
+      const block = el("div", "breakthrough-leap");
+      block.appendChild(textEl("h2", "", "飞跃奖"));
+      block.appendChild(textEl("p", "", leap.names.join("、")));
+      layout.appendChild(block);
+    }
+    const subjectBlock = el("div", "breakthrough-subjects");
+    subjectBlock.appendChild(textEl("h2", "", "学科突破奖"));
+    subjects.forEach((group) => {
+      const row = el("div", "breakthrough-row");
+      row.appendChild(textEl("span", "breakthrough-subject", `${group.label.replace("学科突破奖（", "").replace("）", "")}：`));
+      row.appendChild(textEl("span", "breakthrough-name", group.names.join("、")));
+      subjectBlock.appendChild(row);
+    });
+    layout.appendChild(subjectBlock);
+    container.appendChild(layout);
   }
 
   function renderPerformance(slide) {
@@ -313,6 +369,7 @@
   function renderGameQuestion(slide) {
     const set = slide.source;
     const answer = slide.question.answer || deriveAnswer(slide.question.image);
+    const mode = getGameMode(slide);
     const safe = safeWrap();
     const layout = el("div", "game-layout");
 
@@ -324,7 +381,7 @@
     const copy = el("section", "game-copy");
     copy.appendChild(textEl("div", "game-tag", `${set.tag || set.title}｜${slide.number}/${slide.total}`));
     copy.appendChild(textEl("h1", "game-question", set.prompt));
-    copy.appendChild(textEl("div", "game-step", gameStageText(state.gameStage)));
+    copy.appendChild(textEl("div", "game-step", gameStageText(state.gameStage, mode)));
     const answerBox = el("div", "answer-box");
     answerBox.appendChild(textEl("p", "answer-label", "答案"));
     answerBox.appendChild(textEl("p", "answer-name", answer));
@@ -366,6 +423,7 @@
 
   function bindEvents() {
     document.addEventListener("keydown", (event) => {
+      unlockAudio();
       if (event.key === "f" || event.key === "F") {
         event.preventDefault();
         toggleFullscreen();
@@ -393,6 +451,7 @@
     });
 
     stage.addEventListener("click", () => {
+      unlockAudio();
       if (!state.menuOpen && !state.black) next();
     });
     menu.addEventListener("click", (event) => {
@@ -404,7 +463,7 @@
   function next() {
     if (state.transitioning) return;
     const slide = slides[state.index];
-    if (slide.kind === "game-question" && state.gameStage < 2) {
+    if (slide.kind === "game-question" && state.gameStage < getMaxGameStage(slide)) {
       state.gameStage += 1;
       renderSlide("is-active");
       return;
@@ -429,7 +488,11 @@
 
   function transitionTo(nextIndex) {
     if (nextIndex === state.index || state.transitioning) return;
+    clearAutoAdvance();
     state.transitioning = true;
+    transitionTrail.classList.remove("is-running");
+    void transitionTrail.offsetWidth;
+    transitionTrail.classList.add("is-running");
     stage.classList.remove("is-entering", "is-active");
     stage.classList.add("is-leaving");
     window.setTimeout(() => {
@@ -438,7 +501,7 @@
       renderSlide("is-entering");
       window.setTimeout(() => {
         state.transitioning = false;
-      }, transitionTiming.enter);
+      }, 140);
     }, transitionTiming.leave);
   }
 
@@ -460,6 +523,7 @@
   }
 
   function openMenu() {
+    clearAutoAdvance();
     state.menuOpen = true;
     menu.hidden = false;
     syncMenuActive();
@@ -494,6 +558,27 @@
 
   function updateProgress() {
     progress.textContent = `${state.index + 1} / ${slides.length}`;
+  }
+
+  function clearAutoAdvance() {
+    if (state.autoTimer) {
+      window.clearTimeout(state.autoTimer);
+      state.autoTimer = null;
+    }
+  }
+
+  function getGameMode(slide) {
+    return slide.source.mode === "focus" ? "focus" : "direct";
+  }
+
+  function getMaxGameStage(slide) {
+    return getGameMode(slide) === "focus" ? 2 : 1;
+  }
+
+  function getGameClass(slide) {
+    const mode = getGameMode(slide);
+    const maxStage = getMaxGameStage(slide);
+    return `game-mode-${mode} game-stage-${state.gameStage} ${state.gameStage >= maxStage ? "game-revealed" : ""}`;
   }
 
   function imgEl(src, alt) {
@@ -557,10 +642,115 @@
       .trim();
   }
 
-  function gameStageText(stageValue) {
+  function gameStageText(stageValue, mode) {
     if (stageValue === 0) return "出题";
+    if (mode === "direct") return "揭晓";
     if (stageValue === 1) return "聚焦";
     return "揭晓";
+  }
+
+  function getMusicMode(slide) {
+    if (slide.kind === "speech") return "speech";
+    if (slide.kind.startsWith("game")) return "game";
+    if (slide.kind === "closing" || slide.kind === "photo") return "closing";
+    if (slide.kind === "opening" || slide.kind === "warmup") return "opening";
+    return "award";
+  }
+
+  function scheduleMusicForSlide(slide) {
+    const mode = getMusicMode(slide);
+    audioState.pendingMode = mode;
+    if (audioState.enabled) switchMusic(mode);
+  }
+
+  function unlockAudio() {
+    if (audioState.enabled) return;
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
+    if (!AudioContext) return;
+    audioState.ctx = audioState.ctx || new AudioContext();
+    audioState.ctx.resume?.();
+    audioState.enabled = true;
+    switchMusic(audioState.pendingMode || getMusicMode(slides[state.index]));
+  }
+
+  function switchMusic(mode) {
+    if (!audioState.ctx || audioState.mode === mode) return;
+    const ctx = audioState.ctx;
+    const now = ctx.currentTime;
+    if (audioState.current) {
+      const oldLayer = audioState.current;
+      oldLayer.gain.gain.cancelScheduledValues(now);
+      oldLayer.gain.gain.setValueAtTime(oldLayer.gain.gain.value, now);
+      oldLayer.gain.gain.linearRampToValueAtTime(0.0001, now + 1.8);
+      window.setTimeout(() => stopMusicLayer(oldLayer), 2100);
+    }
+    audioState.current = createMusicLayer(mode);
+    audioState.mode = mode;
+  }
+
+  function createMusicLayer(mode) {
+    const ctx = audioState.ctx;
+    const profile = getMusicProfile(mode);
+    const gain = ctx.createGain();
+    gain.gain.setValueAtTime(0.0001, ctx.currentTime);
+    gain.gain.linearRampToValueAtTime(profile.volume, ctx.currentTime + 2.2);
+    gain.connect(ctx.destination);
+
+    const filter = ctx.createBiquadFilter();
+    filter.type = "lowpass";
+    filter.frequency.value = profile.filter;
+    filter.Q.value = 0.5;
+    filter.connect(gain);
+
+    const nodes = [];
+    profile.notes.forEach((frequency, index) => {
+      const osc = ctx.createOscillator();
+      const oscGain = ctx.createGain();
+      osc.type = profile.wave;
+      osc.frequency.value = frequency;
+      oscGain.gain.value = profile.voiceGain / (index + 1);
+      osc.connect(oscGain);
+      oscGain.connect(filter);
+      osc.start();
+      nodes.push(osc, oscGain);
+    });
+
+    if (profile.pulse) {
+      const pulseOsc = ctx.createOscillator();
+      const pulseGain = ctx.createGain();
+      pulseOsc.type = "sine";
+      pulseOsc.frequency.value = profile.pulse;
+      pulseGain.gain.value = profile.pulseDepth;
+      pulseOsc.connect(pulseGain);
+      pulseGain.connect(gain.gain);
+      pulseOsc.start();
+      nodes.push(pulseOsc, pulseGain);
+    }
+
+    return { gain, nodes };
+  }
+
+  function stopMusicLayer(layer) {
+    layer.nodes.forEach((node) => {
+      try {
+        node.stop?.();
+      } catch {
+        // Node may already be stopped.
+      }
+      node.disconnect?.();
+    });
+    layer.gain.disconnect?.();
+  }
+
+  function getMusicProfile(mode) {
+    const profiles = {
+      opening: { notes: [261.63, 329.63, 392.0, 523.25], wave: "sine", volume: 0.042, voiceGain: 0.052, filter: 880, pulse: 0.05, pulseDepth: 0.012 },
+      award: { notes: [293.66, 369.99, 440.0, 587.33], wave: "sine", volume: 0.028, voiceGain: 0.04, filter: 760, pulse: 0.04, pulseDepth: 0.008 },
+      game: { notes: [329.63, 392.0, 493.88], wave: "triangle", volume: 0.03, voiceGain: 0.032, filter: 920, pulse: 0.42, pulseDepth: 0.006 },
+      speech: { notes: [220.0, 329.63], wave: "sine", volume: 0.006, voiceGain: 0.018, filter: 520, pulse: 0, pulseDepth: 0 },
+      closing: { notes: [261.63, 349.23, 440.0, 523.25], wave: "sine", volume: 0.038, voiceGain: 0.046, filter: 820, pulse: 0.035, pulseDepth: 0.01 }
+    };
+    return profiles[mode] || profiles.award;
   }
 
   function randomBetween(min, max, seed) {

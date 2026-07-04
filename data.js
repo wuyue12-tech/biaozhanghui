@@ -27,6 +27,12 @@ window.EVENT_DATA = {
       fallbackImage: "images/signwall-preview.png"
     },
     {
+      type: "breath",
+      menuTitle: "教师提名奖",
+      title: "教师提名奖",
+      subtitle: "每一次被看见，都是向前的星光"
+    },
+    {
       type: "award",
       category: "教师提名奖",
       title: "过评一星奖",
@@ -58,12 +64,24 @@ window.EVENT_DATA = {
       names: ["郑悦凡"]
     },
     {
+      type: "breath",
+      menuTitle: "表演节目",
+      title: "表演节目",
+      subtitle: "让掌声留给舞台上的星光"
+    },
+    {
       type: "performance",
       menuTitle: "节目：特别的人",
       title: "特别的人",
       performer: "余睿哲",
       duration: "4 分钟",
       subtitle: "表演节目"
+    },
+    {
+      type: "breath",
+      menuTitle: "学科优胜奖",
+      title: "学科优胜奖",
+      subtitle: "把努力，点亮成新的方向"
     },
     {
       type: "award",
@@ -97,6 +115,12 @@ window.EVENT_DATA = {
       names: ["金芷晔", "介宛森", "周埕锐", "隗士集", "华婧涵", "刘绮"]
     },
     {
+      type: "breath",
+      menuTitle: "家长代表发言",
+      title: "家长代表发言",
+      subtitle: "把支持，带进九年级"
+    },
+    {
       type: "speech",
       menuTitle: "家长代表发言",
       title: "家长代表发言",
@@ -118,10 +142,22 @@ window.EVENT_DATA = {
       names: ["周埕锐", "介宛森", "金芷晔"]
     },
     {
+      type: "breath",
+      menuTitle: "互动小游戏",
+      title: "老师鉴定局",
+      subtitle: "看细节，猜答案"
+    },
+    {
       type: "game",
       menuTitle: "小游戏",
       title: "老师鉴定局",
       subtitle: "看细节，猜答案"
+    },
+    {
+      type: "breath",
+      menuTitle: "单科三甲奖",
+      title: "单科三甲奖",
+      subtitle: "每一门学科，都有自己的星辰"
     },
     {
       type: "award",
@@ -145,6 +181,12 @@ window.EVENT_DATA = {
       names: ["金芷晔", "余睿哲", "甘雅婷", "胡洁妤"]
     },
     {
+      type: "breath",
+      menuTitle: "学生代表发言",
+      title: "学生代表发言",
+      subtitle: "把今天的话，说给新的自己"
+    },
+    {
       type: "speech",
       menuTitle: "学生代表发言",
       title: "学生代表发言",
@@ -152,11 +194,23 @@ window.EVENT_DATA = {
       duration: "5-6 分钟"
     },
     {
+      type: "breath",
+      menuTitle: "综合素质奖",
+      title: "综合素质奖",
+      subtitle: "成长不止一种光"
+    },
+    {
       type: "award",
       category: "综合素质奖",
       title: "同美奖",
       subtitle: "美美与共、知行合一",
       names: ["万佳悦", "丰睿奇", "何承泽", "吴浩燃", "唐家城", "姜可媗", "徐乐辰", "徐恩祈", "徐晨熙", "徐铭烁", "方钦熠", "杜可鑫", "杜子豪", "毛家瑞", "江依依", "汪辰航", "潘妍欣", "程畅", "肖新轩", "胡雨辰", "蒋菡", "赵子毅", "邱浩恩", "邵玟茜", "郑可昕", "郑心旅", "郑悦凡", "郑羽夕", "郑雯嘉", "陈依诺", "陈子轩", "隗士集", "龚婧怡"]
+    },
+    {
+      type: "breath",
+      menuTitle: "专项荣誉",
+      title: "专项荣誉",
+      subtitle: "把探索带向更远的地方"
     },
     {
       type: "award",
@@ -187,12 +241,24 @@ window.EVENT_DATA = {
       names: ["许嘉惠", "刘馨钰"]
     },
     {
+      type: "breath",
+      menuTitle: "教师节目",
+      title: "教师节目",
+      subtitle: "把祝福唱给即将出发的你们"
+    },
+    {
       type: "performance",
       menuTitle: "节目：心愿便利贴",
       title: "心愿便利贴",
       performer: "全体教师",
       subtitle: "表演节目",
       quiet: true
+    },
+    {
+      type: "breath",
+      menuTitle: "星光合影",
+      title: "星光合影",
+      subtitle: "举起星星灯，记录今天的出发"
     },
     {
       type: "photo",
