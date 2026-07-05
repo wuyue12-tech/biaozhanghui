@@ -708,6 +708,10 @@
     const img = document.createElement("img");
     img.src = src;
     img.alt = alt || "";
+    // 汤涛涛老师的照片需要旋转180度摆正
+    if (src.includes("汤涛涛老师")) {
+      img.style.transform = "rotate(180deg)";
+    }
     img.addEventListener("error", () => {
       img.classList.add("is-missing");
       img.closest(".game-image, .photo-media, .warmup-media, .speech-slide-frame, .seat-map-frame")?.classList.add("has-missing");
