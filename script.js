@@ -3,6 +3,7 @@
   const stage = document.getElementById("stage");
   const transitionTrail = document.getElementById("transitionTrail");
   const progress = document.getElementById("progress");
+  const musicToggle = document.getElementById("musicToggle");
   const blackout = document.getElementById("blackout");
   const menu = document.getElementById("menu");
   const menuList = document.getElementById("menuList");
@@ -14,7 +15,10 @@
     black: false,
     menuOpen: false,
     transitioning: false,
-    autoTimer: null
+    autoTimer: null,
+    performanceVideoStarted: false,
+    musicMuted: false,
+    playedRevealEffects: new Set()
   };
 
   const transitionTiming = {
@@ -22,12 +26,24 @@
     enter: 980
   };
 
-  const audioState = {
-    ctx: null,
-    current: null,
+  const audioManager = {
+    enabled: false,
     mode: null,
     pendingMode: null,
-    enabled: false
+    tracks: {},
+    effects: {},
+    fadeTimers: {}
+  };
+
+  const bgmProfiles = {
+    seatMap: { asset: "seatMapBgm", volume: 0.22, fadeIn: 2000 },
+    award: { asset: "awardBgm", volume: 0.18, fadeIn: 1800 },
+    game: { asset: "gameBgm", volume: 0.14, fadeIn: 1700 },
+    closing: { asset: "closingBgm", volume: 0.18, fadeIn: 2000 }
+  };
+
+  const effectProfiles = {
+    reveal: { asset: "revealSfx", volume: 0.58 }
   };
 
   const slides = buildSlides(data);
@@ -35,6 +51,7 @@
   renderMenu();
   renderSlide("is-active");
   bindEvents();
+  updateMusicToggle();
 
   function buildSlides(source) {
     const built = [];
@@ -97,6 +114,31 @@
         return;
       }
 
+      if (item.type === "speech-slides") {
+        const images = item.images || [];
+        if (!images.length) {
+          built.push({
+            kind: "speech",
+            label: item.menuTitle || item.title,
+            menuTitle: item.menuTitle || item.title,
+            source: item
+          });
+          return;
+        }
+        images.forEach((image, imageIndex) => {
+          built.push({
+            kind: "speech-image",
+            label: `${item.title} ${imageIndex + 1}`,
+            menuTitle: imageIndex === 0 ? item.menuTitle || item.title : `${item.title} ${imageIndex + 1}`,
+            source: item,
+            image,
+            imageIndex: imageIndex + 1,
+            imageTotal: images.length
+          });
+        });
+        return;
+      }
+
       built.push({
         kind: item.type,
         label: item.menuTitle || item.title,
@@ -137,9 +179,10 @@
     const gameClass = slide.kind === "game-question" ? getGameClass(slide) : "";
     stage.className = `stage ${slide.kind} ${gameClass} ${motionClass}`;
     stage.innerHTML = "";
-    addAtmosphere();
+    if (slide.kind !== "warmup") addAtmosphere();
 
     const renderers = {
+      "seat-map": renderSeatMap,
       opening: renderOpening,
       warmup: renderWarmup,
       breath: renderBreath,
@@ -147,6 +190,7 @@
       "award-list": renderAwardList,
       performance: renderPerformance,
       speech: renderSpeech,
+      "speech-image": renderSpeechImage,
       "game-title": renderGameTitle,
       "game-rule": renderGameRule,
       "game-set": renderGameSet,
@@ -188,6 +232,15 @@
     }
   }
 
+  function renderSeatMap(slide) {
+    const item = slide.source;
+    const safe = safeWrap();
+    const frame = el("section", "seat-map-frame");
+    frame.appendChild(imgEl(item.image || data.assets.seatMap, item.title));
+    frame.appendChild(fallbackBox("座位表图片未找到"));
+    safe.appendChild(frame);
+  }
+
   function renderOpening(slide) {
     const item = slide.source;
     const safe = safeWrap();
@@ -205,7 +258,6 @@
     const media = el("div", "warmup-media");
     const fallback = imgEl(item.fallbackImage || data.assets.signwall, "成长影像暖场");
     const video = document.createElement("video");
-    video.muted = true;
     video.loop = true;
     video.autoplay = true;
     video.playsInline = true;
@@ -218,11 +270,6 @@
     media.appendChild(video);
     media.appendChild(fallbackBox("将活动照片视频命名为 warmup.mp4 放入 video 文件夹后，会在这里自动播放。"));
     stage.appendChild(media);
-
-    const safe = safeWrap();
-    safe.appendChild(textEl("div", "topline", "开场暖场"));
-    safe.appendChild(textEl("h1", "headline compact", item.title));
-    safe.appendChild(textEl("p", "subhead", item.subtitle));
   }
 
   function renderBreath(slide) {
@@ -319,9 +366,29 @@
   function renderPerformance(slide) {
     const item = slide.source;
     const safe = safeWrap();
+    if (item.video) {
+      stage.classList.add("has-performance-video");
+      const videoWrap = el("div", "performance-video-wrap");
+      const video = document.createElement("video");
+      video.className = "performance-video";
+      video.src = item.video;
+      video.preload = "metadata";
+      video.playsInline = true;
+      video.addEventListener("error", () => videoWrap.classList.add("has-missing"));
+      video.addEventListener("ended", () => {
+        if (slides[state.index] === slide && !state.transitioning && state.index < slides.length - 1) {
+          transitionTo(state.index + 1);
+        }
+      });
+      videoWrap.appendChild(video);
+      videoWrap.appendChild(fallbackBox(`视频未找到，请检查 ${item.video}`));
+      stage.appendChild(videoWrap);
+      safe.classList.add("performance-intro");
+    }
     safe.appendChild(textEl("p", "section-label", item.subtitle || "表演节目"));
     safe.appendChild(textEl("h1", "program-title", `《${item.title}》`));
     safe.appendChild(textEl("div", "performer", item.performer));
+    if (item.video) safe.appendChild(textEl("p", "video-hint", "按一次键开始播放"));
     if (item.quiet) stage.appendChild(el("div", "quiet-mark"));
   }
 
@@ -332,6 +399,19 @@
     card.appendChild(textEl("p", "section-label", item.title));
     card.appendChild(textEl("h1", "program-title", item.speaker));
     safe.appendChild(card);
+  }
+
+  function renderSpeechImage(slide) {
+    const item = slide.source;
+    const safe = safeWrap();
+    const frame = el("section", "speech-slide-frame");
+    frame.appendChild(imgEl(slide.image, item.title));
+    frame.appendChild(fallbackBox("学生发言图片未找到"));
+    const meta = el("div", "speech-slide-meta");
+    meta.appendChild(textEl("span", "", item.title));
+    meta.appendChild(textEl("span", "", `${slide.imageIndex}/${slide.imageTotal}`));
+    frame.appendChild(meta);
+    safe.appendChild(frame);
   }
 
   function renderGameTitle(slide) {
@@ -350,7 +430,7 @@
     const rules = el("div", "rule-lines");
     [
       "请每个导师班派一名同学上台抢答",
-      "看局部，猜老师；看物品，猜主人；看照片，猜教室",
+      "先看教室局部，再看物品线索，最后看老师照片",
       "准备好了吗？"
     ].forEach((line) => rules.appendChild(textEl("p", "", line)));
     safe.appendChild(rules);
@@ -405,14 +485,24 @@
 
   function renderClosing(slide) {
     const item = slide.source;
+    const gather = el("div", "closing-star-gather");
+    for (let i = 0; i < 28; i += 1) {
+      const star = el("i", "");
+      star.style.setProperty("--x", `${randomBetween(8, 92, i + 301)}%`);
+      star.style.setProperty("--y", `${randomBetween(10, 86, i + 617)}%`);
+      star.style.setProperty("--delay", `${randomBetween(0.2, 2.3, i + 911).toFixed(2)}s`);
+      gather.appendChild(star);
+    }
+    stage.appendChild(gather);
     const safe = safeWrap();
     safe.appendChild(textEl("div", "topline", "谢幕"));
-    safe.appendChild(textEl("h1", "headline", item.title));
-    safe.appendChild(textEl("p", "subhead", item.subtitle));
+    safe.appendChild(textEl("h1", "headline closing-thanks", item.title));
     const lines = el("div", "closing-lines");
     (item.lines || []).forEach((line) => lines.appendChild(textEl("div", "", line)));
     safe.appendChild(lines);
+    safe.appendChild(textEl("h2", "closing-final", item.subtitle));
     stage.appendChild(el("div", "star-lights"));
+    stage.appendChild(el("div", "closing-blackout"));
   }
 
   function safeWrap() {
@@ -458,13 +548,23 @@
       if (event.target === menu) closeMenu();
     });
     menuClose.addEventListener("click", closeMenu);
+    musicToggle?.addEventListener("click", (event) => {
+      event.stopPropagation();
+      unlockAudio();
+      toggleMusicMute();
+    });
   }
 
   function next() {
     if (state.transitioning) return;
     const slide = slides[state.index];
+    if (isVideoPerformance(slide) && !state.performanceVideoStarted) {
+      startPerformanceVideo();
+      return;
+    }
     if (slide.kind === "game-question" && state.gameStage < getMaxGameStage(slide)) {
       state.gameStage += 1;
+      playRevealEffectOnce(slide);
       renderSlide("is-active");
       return;
     }
@@ -489,6 +589,7 @@
   function transitionTo(nextIndex) {
     if (nextIndex === state.index || state.transitioning) return;
     clearAutoAdvance();
+    stopActiveVideo();
     state.transitioning = true;
     transitionTrail.classList.remove("is-running");
     void transitionTrail.offsetWidth;
@@ -557,7 +658,29 @@
   }
 
   function updateProgress() {
+    const cleanVideo = slides[state.index]?.kind === "warmup";
+    progress.hidden = cleanVideo;
+    if (musicToggle) musicToggle.hidden = cleanVideo;
     progress.textContent = `${state.index + 1} / ${slides.length}`;
+  }
+
+  function toggleMusicMute() {
+    state.musicMuted = !state.musicMuted;
+    updateMusicToggle();
+    if (!audioManager.enabled) return;
+    if (state.musicMuted) {
+      Object.keys(bgmProfiles).forEach((trackName) => fadeBgmTrack(trackName, 0, 900));
+      return;
+    }
+    audioManager.mode = null;
+    switchMusic(getMusicMode(slides[state.index]));
+  }
+
+  function updateMusicToggle() {
+    if (!musicToggle) return;
+    musicToggle.textContent = state.musicMuted ? "🔇" : "🔊";
+    musicToggle.setAttribute("aria-pressed", state.musicMuted ? "true" : "false");
+    musicToggle.setAttribute("aria-label", state.musicMuted ? "恢复背景音乐" : "关闭背景音乐");
   }
 
   function clearAutoAdvance() {
@@ -572,7 +695,7 @@
   }
 
   function getMaxGameStage(slide) {
-    return getGameMode(slide) === "focus" ? 2 : 1;
+    return getGameMode(slide) === "focus" ? 1 : 1;
   }
 
   function getGameClass(slide) {
@@ -587,11 +710,11 @@
     img.alt = alt || "";
     img.addEventListener("error", () => {
       img.classList.add("is-missing");
-      img.closest(".game-image, .photo-media, .warmup-media")?.classList.add("has-missing");
+      img.closest(".game-image, .photo-media, .warmup-media, .speech-slide-frame, .seat-map-frame")?.classList.add("has-missing");
     });
     img.addEventListener("load", () => {
       img.classList.remove("is-missing");
-      img.closest(".game-image, .photo-media, .warmup-media")?.classList.remove("has-missing");
+      img.closest(".game-image, .photo-media, .warmup-media, .speech-slide-frame, .seat-map-frame")?.classList.remove("has-missing");
     });
     return img;
   }
@@ -643,114 +766,171 @@
   }
 
   function gameStageText(stageValue, mode) {
-    if (stageValue === 0) return "出题";
-    if (mode === "direct") return "揭晓";
-    if (stageValue === 1) return "聚焦";
+    if (stageValue === 0) return mode === "focus" ? "局部" : "猜测";
     return "揭晓";
   }
 
   function getMusicMode(slide) {
-    if (slide.kind === "speech") return "speech";
+    if (slide.kind === "seat-map") return "seatMap";
+    if (slide.kind === "breath") return "silent";
+    if (slide.kind === "speech" || slide.kind === "speech-image") return "silent";
+    if (slide.kind === "performance" && slide.source.video) return "silent";
     if (slide.kind.startsWith("game")) return "game";
-    if (slide.kind === "closing" || slide.kind === "photo") return "closing";
-    if (slide.kind === "opening" || slide.kind === "warmup") return "opening";
-    return "award";
+    if (slide.kind === "closing") return "closing";
+    if (slide.kind === "photo") return "silent";
+    if (slide.kind === "award-list") return "award";
+    return "silent";
   }
 
   function scheduleMusicForSlide(slide) {
     const mode = getMusicMode(slide);
-    audioState.pendingMode = mode;
-    if (audioState.enabled) switchMusic(mode);
+    audioManager.pendingMode = mode;
+    if (audioManager.enabled) {
+      switchMusic(mode);
+    } else if (mode !== "silent") {
+      tryAutoplayMusic(mode);
+    }
   }
 
   function unlockAudio() {
-    if (audioState.enabled) return;
-    const AudioContext = window.AudioContext || window.webkitAudioContext;
-    if (!AudioContext) return;
-    audioState.ctx = audioState.ctx || new AudioContext();
-    audioState.ctx.resume?.();
-    audioState.enabled = true;
-    switchMusic(audioState.pendingMode || getMusicMode(slides[state.index]));
+    if (audioManager.enabled) return;
+    audioManager.enabled = true;
+    const targetMode = audioManager.pendingMode || getMusicMode(slides[state.index]);
+    switchMusic(targetMode);
   }
 
   function switchMusic(mode) {
-    if (!audioState.ctx || audioState.mode === mode) return;
-    const ctx = audioState.ctx;
-    const now = ctx.currentTime;
-    if (audioState.current) {
-      const oldLayer = audioState.current;
-      oldLayer.gain.gain.cancelScheduledValues(now);
-      oldLayer.gain.gain.setValueAtTime(oldLayer.gain.gain.value, now);
-      oldLayer.gain.gain.linearRampToValueAtTime(0.0001, now + 1.8);
-      window.setTimeout(() => stopMusicLayer(oldLayer), 2100);
-    }
-    audioState.current = createMusicLayer(mode);
-    audioState.mode = mode;
-  }
-
-  function createMusicLayer(mode) {
-    const ctx = audioState.ctx;
-    const profile = getMusicProfile(mode);
-    const gain = ctx.createGain();
-    gain.gain.setValueAtTime(0.0001, ctx.currentTime);
-    gain.gain.linearRampToValueAtTime(profile.volume, ctx.currentTime + 2.2);
-    gain.connect(ctx.destination);
-
-    const filter = ctx.createBiquadFilter();
-    filter.type = "lowpass";
-    filter.frequency.value = profile.filter;
-    filter.Q.value = 0.5;
-    filter.connect(gain);
-
-    const nodes = [];
-    profile.notes.forEach((frequency, index) => {
-      const osc = ctx.createOscillator();
-      const oscGain = ctx.createGain();
-      osc.type = profile.wave;
-      osc.frequency.value = frequency;
-      oscGain.gain.value = profile.voiceGain / (index + 1);
-      osc.connect(oscGain);
-      oscGain.connect(filter);
-      osc.start();
-      nodes.push(osc, oscGain);
+    if (audioManager.mode === mode) return;
+    Object.keys(bgmProfiles).forEach((trackName) => {
+      const profile = bgmProfiles[trackName];
+      const targetVolume = !state.musicMuted && trackName === mode ? profile.volume : 0;
+      const duration = targetVolume > 0 ? profile.fadeIn : 1500;
+      fadeBgmTrack(trackName, targetVolume, duration);
     });
-
-    if (profile.pulse) {
-      const pulseOsc = ctx.createOscillator();
-      const pulseGain = ctx.createGain();
-      pulseOsc.type = "sine";
-      pulseOsc.frequency.value = profile.pulse;
-      pulseGain.gain.value = profile.pulseDepth;
-      pulseOsc.connect(pulseGain);
-      pulseGain.connect(gain.gain);
-      pulseOsc.start();
-      nodes.push(pulseOsc, pulseGain);
-    }
-
-    return { gain, nodes };
+    audioManager.mode = mode;
   }
 
-  function stopMusicLayer(layer) {
-    layer.nodes.forEach((node) => {
-      try {
-        node.stop?.();
-      } catch {
-        // Node may already be stopped.
+  function tryAutoplayMusic(mode) {
+    if (state.musicMuted || audioManager.enabled || !bgmProfiles[mode]) return;
+    const audio = ensureBgmTrack(mode);
+    const profile = bgmProfiles[mode];
+    if (!audio || !profile) return;
+    audio.volume = 0;
+    audio
+      .play()
+      .then(() => {
+        audioManager.enabled = true;
+        audioManager.mode = null;
+        switchMusic(mode);
+      })
+      .catch(() => {
+        audio.pause();
+      });
+  }
+
+  function ensureBgmTrack(trackName) {
+    if (audioManager.tracks[trackName]) return audioManager.tracks[trackName];
+    const profile = bgmProfiles[trackName];
+    const src = profile ? data.assets?.[profile.asset] : "";
+    if (!src) return null;
+    const audio = new Audio(src);
+    audio.loop = true;
+    audio.preload = "auto";
+    audio.volume = 0;
+    audioManager.tracks[trackName] = audio;
+    return audio;
+  }
+
+  function fadeBgmTrack(trackName, targetVolume, duration) {
+    const audio = ensureBgmTrack(trackName);
+    if (!audio) return;
+    if (audioManager.fadeTimers[trackName]) {
+      window.clearInterval(audioManager.fadeTimers[trackName]);
+      audioManager.fadeTimers[trackName] = null;
+    }
+    const start = audio.volume;
+    const startedAt = performance.now();
+    if (targetVolume > 0 && audio.paused) {
+      audio.muted = false;
+      audio.play().catch(() => {});
+    }
+    audioManager.fadeTimers[trackName] = window.setInterval(() => {
+      const elapsed = performance.now() - startedAt;
+      const ratio = Math.min(1, elapsed / duration);
+      const nextVolume = start + (targetVolume - start) * ratio;
+      audio.volume = Math.max(0, Math.min(1, nextVolume));
+      if (ratio >= 1) {
+        window.clearInterval(audioManager.fadeTimers[trackName]);
+        audioManager.fadeTimers[trackName] = null;
+        if (targetVolume === 0) audio.pause();
       }
-      node.disconnect?.();
-    });
-    layer.gain.disconnect?.();
+    }, 40);
   }
 
-  function getMusicProfile(mode) {
-    const profiles = {
-      opening: { notes: [261.63, 329.63, 392.0, 523.25], wave: "sine", volume: 0.042, voiceGain: 0.052, filter: 880, pulse: 0.05, pulseDepth: 0.012 },
-      award: { notes: [293.66, 369.99, 440.0, 587.33], wave: "sine", volume: 0.028, voiceGain: 0.04, filter: 760, pulse: 0.04, pulseDepth: 0.008 },
-      game: { notes: [329.63, 392.0, 493.88], wave: "triangle", volume: 0.03, voiceGain: 0.032, filter: 920, pulse: 0.42, pulseDepth: 0.006 },
-      speech: { notes: [220.0, 329.63], wave: "sine", volume: 0.006, voiceGain: 0.018, filter: 520, pulse: 0, pulseDepth: 0 },
-      closing: { notes: [261.63, 349.23, 440.0, 523.25], wave: "sine", volume: 0.038, voiceGain: 0.046, filter: 820, pulse: 0.035, pulseDepth: 0.01 }
-    };
-    return profiles[mode] || profiles.award;
+  function playRevealEffectOnce(slide) {
+    const key = `${state.index}:${slide.question.image}`;
+    if (state.playedRevealEffects.has(key)) return;
+    state.playedRevealEffects.add(key);
+    playSoundEffect("reveal");
+  }
+
+  function playSoundEffect(effectName) {
+    if (state.musicMuted) return;
+    const base = ensureSoundEffect(effectName);
+    const profile = effectProfiles[effectName];
+    if (!base || !profile) return;
+    const audio = base.cloneNode(true);
+    audio.volume = profile.volume;
+    audio.play().catch(() => {});
+  }
+
+  function ensureSoundEffect(effectName) {
+    if (audioManager.effects[effectName]) return audioManager.effects[effectName];
+    const profile = effectProfiles[effectName];
+    const src = profile ? data.assets?.[profile.asset] : "";
+    if (!src) return null;
+    const audio = new Audio(src);
+    audio.preload = "auto";
+    audio.volume = profile.volume;
+    audioManager.effects[effectName] = audio;
+    return audio;
+  }
+
+  function isVideoPerformance(slide) {
+    return slide.kind === "performance" && Boolean(slide.source.video);
+  }
+
+  function startPerformanceVideo() {
+    const video = stage.querySelector(".performance-video");
+    if (!video) return;
+    state.performanceVideoStarted = true;
+    stage.classList.add("video-started");
+    switchMusic("video");
+    video.muted = false;
+    video.volume = 1;
+    try {
+      video.currentTime = 0;
+    } catch {
+      // Some browsers may delay seeking until metadata is ready.
+    }
+    video.play().catch(() => {
+      video.controls = true;
+    });
+  }
+
+  function stopActiveVideo() {
+    const video = stage.querySelector(".performance-video");
+    if (!video) {
+      state.performanceVideoStarted = false;
+      return;
+    }
+    video.pause();
+    try {
+      video.currentTime = 0;
+    } catch {
+      // Ignore seek failures while unloading the slide.
+    }
+    state.performanceVideoStarted = false;
   }
 
   function randomBetween(min, max, seed) {

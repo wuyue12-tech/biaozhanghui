@@ -2,101 +2,15 @@
 // Add or remove image files in images/game/, then run: node tools/generate_game_data.mjs
 window.GAME_DATA = [
   {
-    "id": "teacher-photo",
-    "title": "根据老师小时候照片猜老师",
-    "prompt": "这是哪位老师？",
-    "tag": "照片猜老师",
-    "mode": "direct",
-    "questions": [
-      {
-        "image": "images/game/猜一猜是哪位老师/陈建姣老师.JPG",
-        "answer": "陈建姣老师"
-      },
-      {
-        "image": "images/game/猜一猜是哪位老师/吕晓雪老师.JPG",
-        "answer": "吕晓雪老师"
-      },
-      {
-        "image": "images/game/猜一猜是哪位老师/汤涛涛老师.jpg",
-        "answer": "汤涛涛老师"
-      },
-      {
-        "image": "images/game/猜一猜是哪位老师/王小俊老师.JPG",
-        "answer": "王小俊老师"
-      },
-      {
-        "image": "images/game/猜一猜是哪位老师/吴越老师.jpeg",
-        "answer": "吴越老师"
-      },
-      {
-        "image": "images/game/猜一猜是哪位老师/徐秀敏老师.JPG",
-        "answer": "徐秀敏老师"
-      },
-      {
-        "image": "images/game/猜一猜是哪位老师/余月月老师.jpeg",
-        "answer": "余月月老师"
-      },
-      {
-        "image": "images/game/猜一猜是哪位老师/祝向阳老师.jpeg",
-        "answer": "祝向阳老师"
-      }
-    ]
-  },
-  {
-    "id": "teacher-item",
-    "title": "根据老师私人物品猜老师姓名",
-    "prompt": "这件物品属于哪位老师？",
-    "tag": "物品猜老师",
-    "mode": "focus",
-    "questions": [
-      {
-        "image": "images/game/猜一猜是哪位老师的物品/仇巧云老师的物品.JPG",
-        "answer": "仇巧云老师"
-      },
-      {
-        "image": "images/game/猜一猜是哪位老师的物品/江慧莹老师的物品.jpeg",
-        "answer": "江慧莹老师"
-      },
-      {
-        "image": "images/game/猜一猜是哪位老师的物品/姜欢蜜老师的物品.jpeg",
-        "answer": "姜欢蜜老师"
-      },
-      {
-        "image": "images/game/猜一猜是哪位老师的物品/刘祖璇老师的物品.jpeg",
-        "answer": "刘祖璇老师"
-      },
-      {
-        "image": "images/game/猜一猜是哪位老师的物品/毛燕玲老师的物品.jpeg",
-        "answer": "毛燕玲老师"
-      },
-      {
-        "image": "images/game/猜一猜是哪位老师的物品/戚齐婷老师的物品.jpeg",
-        "answer": "戚齐婷老师"
-      },
-      {
-        "image": "images/game/猜一猜是哪位老师的物品/钱锦老师的物品.jpeg",
-        "answer": "钱锦老师"
-      },
-      {
-        "image": "images/game/猜一猜是哪位老师的物品/邱慧老师的奖品.jpeg",
-        "answer": "邱慧老师"
-      },
-      {
-        "image": "images/game/猜一猜是哪位老师的物品/邱慧老师的物品.jpeg",
-        "answer": "邱慧老师"
-      }
-    ]
-  },
-  {
     "id": "classroom",
     "title": "根据照片猜学科教室",
     "prompt": "这是哪间学科教室？",
     "tag": "教室猜一猜",
-    "mode": "direct",
+    "mode": "focus",
     "questions": [
       {
-        "image": "images/game/猜一猜是哪个教室/A402.jpeg",
-        "answer": "A402"
+        "image": "images/game/猜一猜是哪个教室/E402.jpeg",
+        "answer": "E402"
       },
       {
         "image": "images/game/猜一猜是哪个教室/A404.jpeg",
@@ -111,12 +25,98 @@ window.GAME_DATA = [
         "answer": "E401"
       },
       {
-        "image": "images/game/猜一猜是哪个教室/E402.jpeg",
-        "answer": "E402"
+        "image": "images/game/猜一猜是哪个教室/A402.jpeg",
+        "answer": "A402"
       },
       {
         "image": "images/game/猜一猜是哪个教室/E403.jpeg",
         "answer": "E403"
+      }
+    ]
+  },
+  {
+    "id": "teacher-item",
+    "title": "根据老师私人物品猜老师姓名",
+    "prompt": "这件物品属于哪位老师？",
+    "tag": "物品猜老师",
+    "mode": "focus",
+    "questions": [
+      {
+        "image": "images/game/猜一猜是哪位老师的物品/邱慧老师的奖品.jpeg",
+        "answer": "邱慧老师"
+      },
+      {
+        "image": "images/game/猜一猜是哪位老师的物品/江慧莹老师的物品.jpeg",
+        "answer": "江慧莹老师"
+      },
+      {
+        "image": "images/game/猜一猜是哪位老师的物品/钱锦老师的物品.jpeg",
+        "answer": "钱锦老师"
+      },
+      {
+        "image": "images/game/猜一猜是哪位老师的物品/刘祖璇老师的物品.jpeg",
+        "answer": "刘祖璇老师"
+      },
+      {
+        "image": "images/game/猜一猜是哪位老师的物品/余月月老师的物品.jpeg",
+        "answer": "余月月老师"
+      },
+      {
+        "image": "images/game/猜一猜是哪位老师的物品/毛燕玲老师的物品.jpeg",
+        "answer": "毛燕玲老师"
+      },
+      {
+        "image": "images/game/猜一猜是哪位老师的物品/邱慧老师的物品.jpeg",
+        "answer": "邱慧老师"
+      },
+      {
+        "image": "images/game/猜一猜是哪位老师的物品/姜欢蜜老师的物品.jpeg",
+        "answer": "姜欢蜜老师"
+      },
+      {
+        "image": "images/game/猜一猜是哪位老师的物品/戚齐婷老师的物品.jpeg",
+        "answer": "戚齐婷老师"
+      }
+    ]
+  },
+  {
+    "id": "teacher-photo",
+    "title": "根据老师照片猜老师",
+    "prompt": "这是哪位老师？",
+    "tag": "照片猜老师",
+    "mode": "direct",
+    "questions": [
+      {
+        "image": "images/game/猜一猜是哪位老师/吴越老师.jpeg",
+        "answer": "吴越老师"
+      },
+      {
+        "image": "images/game/猜一猜是哪位老师/仇巧云老师.JPG",
+        "answer": "仇巧云老师"
+      },
+      {
+        "image": "images/game/猜一猜是哪位老师/徐秀敏老师.JPG",
+        "answer": "徐秀敏老师"
+      },
+      {
+        "image": "images/game/猜一猜是哪位老师/陈建姣老师.JPG",
+        "answer": "陈建姣老师"
+      },
+      {
+        "image": "images/game/猜一猜是哪位老师/祝向阳老师.jpeg",
+        "answer": "祝向阳老师"
+      },
+      {
+        "image": "images/game/猜一猜是哪位老师/王小俊老师.JPG",
+        "answer": "王小俊老师"
+      },
+      {
+        "image": "images/game/猜一猜是哪位老师/吕晓雪老师.JPG",
+        "answer": "吕晓雪老师"
+      },
+      {
+        "image": "images/game/猜一猜是哪位老师/汤涛涛老师.jpg",
+        "answer": "汤涛涛老师"
       }
     ]
   }

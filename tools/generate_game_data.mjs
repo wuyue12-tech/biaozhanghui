@@ -12,12 +12,12 @@ const files = (await walkImages(gameDir))
 
 const sets = [
   {
-    id: "teacher-photo",
-    title: "根据老师小时候照片猜老师",
-    prompt: "这是哪位老师？",
-    tag: "照片猜老师",
-    mode: "direct",
-    match: isTeacherPhoto
+    id: "classroom",
+    title: "根据照片猜学科教室",
+    prompt: "这是哪间学科教室？",
+    tag: "教室猜一猜",
+    mode: "focus",
+    match: isClassroom
   },
   {
     id: "teacher-item",
@@ -28,17 +28,18 @@ const sets = [
     match: isTeacherItem
   },
   {
-    id: "classroom",
-    title: "根据照片猜学科教室",
-    prompt: "这是哪间学科教室？",
-    tag: "教室猜一猜",
+    id: "teacher-photo",
+    title: "根据老师照片猜老师",
+    prompt: "这是哪位老师？",
+    tag: "照片猜老师",
     mode: "direct",
-    match: isClassroom
+    match: isTeacherPhoto
   }
 ].map(({ match, ...set }) => ({
   ...set,
   questions: files
     .filter(match)
+    .sort((a, b) => compareByDesignedOrder(set.id, a, b))
     .map((file) => ({
       image: `images/game/${file}`,
       answer: deriveAnswer(file)
@@ -78,6 +79,23 @@ function isTeacherPhoto(name) {
 
 function stripExt(name) {
   return name.replace(/\.[^.]+$/, "");
+}
+
+function compareByDesignedOrder(setId, a, b) {
+  const orderMap = {
+    classroom: ["E402", "A404", "B402", "E401", "A402", "E403"],
+    "teacher-item": ["邱慧老师的奖品", "江慧莹老师的物品", "钱锦老师的物品", "刘祖璇老师的物品", "余月月老师的物品", "毛燕玲老师的物品", "邱慧老师的物品", "姜欢蜜老师的物品", "戚齐婷老师的物品"],
+    "teacher-photo": ["吴越老师", "仇巧云老师", "徐秀敏老师", "陈建姣老师", "祝向阳老师", "王小俊老师", "吕晓雪老师", "汤涛涛老师"]
+  };
+  const order = orderMap[setId] || [];
+  const ai = order.indexOf(stripExt(path.basename(a)));
+  const bi = order.indexOf(stripExt(path.basename(b)));
+  if (ai !== -1 || bi !== -1) {
+    if (ai === -1) return 1;
+    if (bi === -1) return -1;
+    return ai - bi;
+  }
+  return a.localeCompare(b, "zh-Hans-CN");
 }
 
 function deriveAnswer(file) {

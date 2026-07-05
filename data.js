@@ -1,22 +1,26 @@
 window.EVENT_DATA = {
   title: "向九年级出发",
-  subtitle: "进嘉年级成长表彰暨九年级入境仪式",
+  subtitle: "进衢年级成长表彰暨九年级入境仪式",
   eventDate: "2026.7.6",
   dateLine: "今天，我们一起向九年级出发",
   hosts: "主持人：刘馨钰、姜妍",
   assets: {
     signwall: "images/signwall-preview.png",
     starfield: "images/starfield.jpg",
-    warmupVideo: "video/warmup.mp4"
+    seatMap: "images/seat-map.png",
+    warmupVideo: "video/warmup.mp4",
+    seatMapBgm: "audio/opening-bgm.flac",
+    awardBgm: "audio/award-bgm.mp3",
+    gameBgm: "audio/game-bgm.mp3",
+    closingBgm: "audio/closing-bgm.mp3",
+    revealSfx: "audio/reveal-sfx.mp3"
   },
   program: [
     {
-      type: "opening",
-      menuTitle: "开场",
-      eyebrow: "进嘉年级成长表彰暨九年级入境仪式",
-      title: "向九年级出发",
-      subtitle: "今天，我们一起向九年级出发",
-      meta: ["成长表彰", "九年级入境", "星光启程"]
+      type: "seat-map",
+      menuTitle: "座位表",
+      title: "座位表",
+      image: "images/seat-map.png"
     },
     {
       type: "warmup",
@@ -25,6 +29,14 @@ window.EVENT_DATA = {
       subtitle: "把走过的路，带向新的出发",
       video: "video/warmup.mp4",
       fallbackImage: "images/signwall-preview.png"
+    },
+    {
+      type: "opening",
+      menuTitle: "开场",
+      eyebrow: "进衢年级成长表彰暨九年级入境仪式",
+      title: "向九年级出发",
+      subtitle: "今天，我们一起向九年级出发",
+      meta: ["成长表彰", "九年级入境", "星光启程"]
     },
     {
       type: "breath",
@@ -75,7 +87,8 @@ window.EVENT_DATA = {
       title: "特别的人",
       performer: "余睿哲",
       duration: "4 分钟",
-      subtitle: "表演节目"
+      subtitle: "表演节目",
+      video: "video/特别的人.mp4"
     },
     {
       type: "breath",
@@ -187,11 +200,20 @@ window.EVENT_DATA = {
       subtitle: "把今天的话，说给新的自己"
     },
     {
-      type: "speech",
+      type: "speech-slides",
       menuTitle: "学生代表发言",
       title: "学生代表发言",
       speaker: "胡洁妤",
-      duration: "5-6 分钟"
+      duration: "5-6 分钟",
+      images: [
+        "images/student-speech/slide-01.png",
+        "images/student-speech/slide-02.png",
+        "images/student-speech/slide-03.png",
+        "images/student-speech/slide-04.png",
+        "images/student-speech/slide-05.png",
+        "images/student-speech/slide-06.png",
+        "images/student-speech/slide-07.png"
+      ]
     },
     {
       type: "breath",
@@ -252,7 +274,7 @@ window.EVENT_DATA = {
       title: "心愿便利贴",
       performer: "全体教师",
       subtitle: "表演节目",
-      quiet: true
+      video: "video/心愿便利贴.mp4"
     },
     {
       type: "breath",
@@ -277,37 +299,50 @@ window.EVENT_DATA = {
   ],
   games: [
     {
-      title: "根据照片猜老师姓名",
-      prompt: "这是哪位老师？",
-      tag: "照片猜老师",
+      title: "根据照片猜学科教室",
+      prompt: "这是哪间学科教室？",
+      tag: "教室猜一猜",
+      mode: "focus",
       questions: [
-        { image: "images/game/仇巧云老师.JPG" },
-        { image: "images/game/刘祖璇老师.jpeg" },
-        { image: "images/game/吴越老师.jpeg" },
-        { image: "images/game/姜欢蜜老师.jpeg" },
-        { image: "images/game/王小俊老师.JPG" },
-        { image: "images/game/陈建姣老师.JPG" }
+        { image: "images/game/猜一猜是哪个教室/E402.jpeg", answer: "E402" },
+        { image: "images/game/猜一猜是哪个教室/A404.jpeg", answer: "A404" },
+        { image: "images/game/猜一猜是哪个教室/B402.jpeg", answer: "B402" },
+        { image: "images/game/猜一猜是哪个教室/E401.jpeg", answer: "E401" },
+        { image: "images/game/猜一猜是哪个教室/A402.jpeg", answer: "A402" },
+        { image: "images/game/猜一猜是哪个教室/E403.jpeg", answer: "E403" }
       ]
     },
     {
       title: "根据老师私人物品猜老师姓名",
       prompt: "这件物品属于哪位老师？",
       tag: "物品猜老师",
+      mode: "focus",
       questions: [
-        { image: "images/game/邱慧老师的奖品.jpeg", answer: "邱慧老师" }
+        { image: "images/game/猜一猜是哪位老师的物品/邱慧老师的奖品.jpeg", answer: "邱慧老师" },
+        { image: "images/game/猜一猜是哪位老师的物品/江慧莹老师的物品.jpeg", answer: "江慧莹老师" },
+        { image: "images/game/猜一猜是哪位老师的物品/钱锦老师的物品.jpeg", answer: "钱锦老师" },
+        { image: "images/game/猜一猜是哪位老师的物品/刘祖璇老师的物品.jpeg", answer: "刘祖璇老师" },
+        { image: "images/game/猜一猜是哪位老师的物品/余月月老师的物品.jpeg", answer: "余月月老师" },
+        { image: "images/game/猜一猜是哪位老师的物品/毛燕玲老师的物品.jpeg", answer: "毛燕玲老师" },
+        { image: "images/game/猜一猜是哪位老师的物品/邱慧老师的物品.jpeg", answer: "邱慧老师" },
+        { image: "images/game/猜一猜是哪位老师的物品/姜欢蜜老师的物品.jpeg", answer: "姜欢蜜老师" },
+        { image: "images/game/猜一猜是哪位老师的物品/戚齐婷老师的物品.jpeg", answer: "戚齐婷老师" }
       ]
     },
     {
-      title: "根据照片猜学科教室",
-      prompt: "这是哪间学科教室？",
-      tag: "教室猜一猜",
+      title: "根据老师照片猜老师",
+      prompt: "这是哪位老师？",
+      tag: "照片猜老师",
+      mode: "direct",
       questions: [
-        { image: "images/game/A402.jpeg" },
-        { image: "images/game/A404.jpeg" },
-        { image: "images/game/B402.jpeg" },
-        { image: "images/game/E401.jpeg" },
-        { image: "images/game/E402.jpeg" },
-        { image: "images/game/E403.jpeg" }
+        { image: "images/game/猜一猜是哪位老师/吴越老师.jpeg", answer: "吴越老师" },
+        { image: "images/game/猜一猜是哪位老师/仇巧云老师.JPG", answer: "仇巧云老师" },
+        { image: "images/game/猜一猜是哪位老师/徐秀敏老师.JPG", answer: "徐秀敏老师" },
+        { image: "images/game/猜一猜是哪位老师/陈建姣老师.JPG", answer: "陈建姣老师" },
+        { image: "images/game/猜一猜是哪位老师/祝向阳老师.jpeg", answer: "祝向阳老师" },
+        { image: "images/game/猜一猜是哪位老师/王小俊老师.JPG", answer: "王小俊老师" },
+        { image: "images/game/猜一猜是哪位老师/吕晓雪老师.JPG", answer: "吕晓雪老师" },
+        { image: "images/game/猜一猜是哪位老师/汤涛涛老师.jpg", answer: "汤涛涛老师" }
       ]
     }
   ]
