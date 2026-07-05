@@ -500,6 +500,19 @@
     const lines = el("div", "closing-lines");
     (item.lines || []).forEach((line) => lines.appendChild(textEl("div", "", line)));
     safe.appendChild(lines);
+    if (item.staff?.length) {
+      const staffBlock = el("div", "closing-staff");
+      staffBlock.appendChild(textEl("p", "closing-staff-title", "演职人员名单"));
+      const staffGrid = el("div", "closing-staff-grid");
+      item.staff.forEach((group) => {
+        const card = el("div", "closing-staff-item");
+        card.appendChild(textEl("p", "closing-staff-role", group.role));
+        card.appendChild(textEl("p", "closing-staff-names", (group.names || []).join("、")));
+        staffGrid.appendChild(card);
+      });
+      staffBlock.appendChild(staffGrid);
+      safe.appendChild(staffBlock);
+    }
     safe.appendChild(textEl("h2", "closing-final", item.subtitle));
     stage.appendChild(el("div", "star-lights"));
     stage.appendChild(el("div", "closing-blackout"));
@@ -812,6 +825,13 @@
       fadeBgmTrack(trackName, targetVolume, duration);
     });
     audioManager.mode = mode;
+    if (mode === "closing") {
+      window.setTimeout(() => {
+        if (!state.musicMuted && audioManager.mode === "closing") {
+          fadeBgmTrack("closing", 0.34, 6000);
+        }
+      }, 220);
+    }
   }
 
   function tryAutoplayMusic(mode) {
