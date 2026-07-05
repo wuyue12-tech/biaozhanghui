@@ -1006,7 +1006,7 @@ img.is-missing + .image-fallback {
   display: block;
   object-fit: cover;
   transform-origin: 50% 46%;
-  transition: transform 0.4s ease;
+  transition: transform 0.65s ease, filter 0.65s ease, object-fit 0.35s ease;
 }
 
 .game-mode-focus.game-stage-0 .game-image img {
