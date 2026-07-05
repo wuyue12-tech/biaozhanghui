@@ -1,0 +1,709 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>八升九入境仪式执行方案</title>
+  <style>
+    :root {
+      --ink: #202631;
+      --muted: #66717f;
+      --line: #d8e0e7;
+      --paper: #f5f1e9;
+      --white: #ffffff;
+      --green: #2f7a5b;
+      --green-soft: #e8f3ed;
+      --blue: #315e8d;
+      --blue-soft: #e8eff8;
+      --gold: #a97424;
+      --gold-soft: #f7ecd4;
+      --red: #9e4a42;
+      --red-soft: #f6e7e4;
+      --shadow: 0 16px 34px rgba(42, 52, 65, 0.08);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif;
+      line-height: 1.58;
+    }
+
+    main {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 28px 0 56px;
+    }
+
+    h1, h2, h3, p { margin: 0; }
+    h1, h2, h3 { line-height: 1.2; letter-spacing: 0; }
+    h1 { font-size: clamp(34px, 5.4vw, 60px); font-weight: 900; }
+    h2 { font-size: 26px; margin-bottom: 16px; }
+    h3 { font-size: 18px; margin-bottom: 8px; }
+
+    .hero, .panel, .card, .strip, .brief {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.28fr 0.72fr;
+      gap: 22px;
+      margin-bottom: 22px;
+    }
+
+    .hero-main, .hero-side { padding: 28px; }
+
+    .eyebrow {
+      color: var(--green);
+      font-size: 14px;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+
+    .lead {
+      margin-top: 16px;
+      max-width: 780px;
+      color: var(--muted);
+      font-size: 18px;
+    }
+
+    .hero-side {
+      background:
+        linear-gradient(135deg, rgba(47, 122, 91, 0.14), rgba(49, 94, 141, 0.12)),
+        #fff;
+      border-left: 1px solid var(--line);
+      position: relative;
+      overflow: hidden;
+      min-height: 330px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .stamp {
+      width: 132px;
+      height: 132px;
+      border: 5px solid var(--red);
+      color: var(--red);
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-size: 20px;
+      font-weight: 900;
+      transform: rotate(-8deg);
+      background: rgba(255,255,255,0.72);
+    }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-top: 24px;
+    }
+
+    .metric {
+      min-height: 82px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 12px;
+      background: #fbfcfc;
+    }
+
+    .metric strong {
+      display: block;
+      font-size: 25px;
+      line-height: 1.1;
+      margin-bottom: 6px;
+    }
+
+    .metric span, .muted { color: var(--muted); }
+
+    section { margin-top: 22px; }
+    .panel { padding: 24px; }
+
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+
+    .card {
+      box-shadow: none;
+      padding: 16px;
+    }
+
+    .tag {
+      display: inline-flex;
+      min-height: 28px;
+      align-items: center;
+      border-radius: 999px;
+      padding: 4px 10px;
+      margin-bottom: 10px;
+      font-size: 13px;
+      font-weight: 800;
+      background: var(--blue-soft);
+      color: var(--blue);
+    }
+
+    .green { background: var(--green-soft); color: var(--green); }
+    .gold { background: var(--gold-soft); color: var(--gold); }
+    .red { background: var(--red-soft); color: var(--red); }
+
+    .brief {
+      box-shadow: none;
+      padding: 18px;
+      background: #fffdf7;
+      border-color: #eadbb9;
+    }
+
+    .brief strong { color: var(--gold); }
+
+    .timeline {
+      display: grid;
+      gap: 10px;
+    }
+
+    .step {
+      display: grid;
+      grid-template-columns: 106px 1fr 186px;
+      gap: 14px;
+      align-items: start;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 14px;
+      background: #fff;
+    }
+
+    .time {
+      font-weight: 900;
+      color: var(--green);
+    }
+
+    .step-title {
+      font-weight: 900;
+      margin-bottom: 4px;
+    }
+
+    .owner {
+      border-radius: 8px;
+      background: #f5f8f8;
+      color: var(--muted);
+      padding: 8px 10px;
+      font-size: 13px;
+    }
+
+    ul {
+      margin: 10px 0 0;
+      padding-left: 20px;
+    }
+
+    li { margin: 6px 0; }
+
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+      overflow: hidden;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: #fff;
+    }
+
+    .table th, .table td {
+      border-bottom: 1px solid var(--line);
+      padding: 11px 12px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    .table th {
+      background: #f4f7f8;
+      color: #344252;
+      font-size: 14px;
+    }
+
+    .table tr:last-child td { border-bottom: 0; }
+
+    .rule-line {
+      display: grid;
+      grid-template-columns: 190px 1fr;
+      gap: 14px;
+      border-top: 1px solid var(--line);
+      padding: 14px 0;
+    }
+
+    .rule-line:first-child { border-top: 0; padding-top: 0; }
+    .rule-line:last-child { padding-bottom: 0; }
+    .rule-line strong { color: var(--green); }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 8px;
+    }
+
+    .mini-card {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      min-height: 58px;
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-weight: 800;
+      color: #344252;
+    }
+
+    .script {
+      border-left: 4px solid var(--green);
+      background: linear-gradient(90deg, var(--green-soft), transparent);
+      padding: 12px 14px;
+      font-size: 17px;
+    }
+
+    .materials {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .checklist {
+      columns: 2;
+      column-gap: 28px;
+      margin-top: 4px;
+    }
+
+    .footer-note {
+      padding: 22px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    @media (max-width: 960px) {
+      .hero, .grid-2, .grid-3, .grid-4, .materials {
+        grid-template-columns: 1fr;
+      }
+      .metrics { grid-template-columns: repeat(2, 1fr); }
+      .step, .rule-line { grid-template-columns: 1fr; }
+      .cards { grid-template-columns: repeat(3, 1fr); }
+      .checklist { columns: 1; }
+      .hero-side { border-left: 0; border-top: 1px solid var(--line); }
+    }
+
+    @media (max-width: 560px) {
+      main { width: min(100% - 20px, 1180px); padding-top: 16px; }
+      .hero-main, .hero-side, .panel { padding: 18px; }
+      .metrics, .cards { grid-template-columns: 1fr 1fr; }
+      .table { font-size: 14px; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header class="hero">
+      <div class="hero-main">
+        <p class="eyebrow">执行稿 v0.3 · 供老师团队讨论</p>
+        <h1>八升九入境仪式：九年级入境挑战局</h1>
+        <p class="lead">学生以导师班为队伍，在同一场地内完成装备选择、情境应对、导师加试和入境认证。活动有游戏规则，也有清楚的收束动作。</p>
+        <div class="metrics">
+          <div class="metric"><strong>110</strong><span>名学生</span></div>
+          <div class="metric"><strong>17</strong><span>位老师</span></div>
+          <div class="metric"><strong>13</strong><span>个导师班</span></div>
+          <div class="metric"><strong>85</strong><span>分钟标准流程</span></div>
+        </div>
+      </div>
+      <aside class="hero-side">
+        <div>
+          <span class="tag red">最终现场动作</span>
+          <h2>每队获得一张入境通行牌</h2>
+          <p class="muted">通行牌上写清：本队装备、抽中事件、三步行动、入境口令。导师完成认证后，通行牌贴上入境墙。</p>
+        </div>
+        <div class="stamp">准许入境</div>
+      </aside>
+    </header>
+
+    <section class="panel">
+      <h2>一页总览</h2>
+      <div class="grid-4">
+        <article class="card">
+          <span class="tag green">活动目标</span>
+          <h3>让九年级变成一次现场经验</h3>
+          <p class="muted">学生在真实情境中做选择、商量办法、接受导师追问，最后用一句话确认自己的进入状态。</p>
+        </article>
+        <article class="card">
+          <span class="tag">组织单位</span>
+          <h3>导师班小队</h3>
+          <p class="muted">13 个导师班为基础单位。双导师班现场分成 A、B 两个行动小组，全场按 14 个行动小组推进。</p>
+        </article>
+        <article class="card">
+          <span class="tag gold">游戏骨架</span>
+          <h3>能量币 + 装备卡 + 事件卡</h3>
+          <p class="muted">学生用有限预算买装备，再用装备处理九年级事件。规则简单，现场会自然出现争论和笑点。</p>
+        </article>
+        <article class="card">
+          <span class="tag red">仪式收束</span>
+          <h3>导师认证</h3>
+          <p class="muted">每队 40 秒亮相。导师盖章，全队喊入口令，通行牌进入入境墙。</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>人员分工</h2>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>角色</th>
+            <th>人数</th>
+            <th>现场任务</th>
+            <th>手里拿什么</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>主持总控</td>
+            <td>1</td>
+            <td>宣布规则、推进流程、控制入境认证节奏。</td>
+            <td>流程卡、主持词、无线麦。</td>
+          </tr>
+          <tr>
+            <td>音响计时</td>
+            <td>1</td>
+            <td>播放音乐、倒计时、任务开始和结束提示音。</td>
+            <td>电脑、音频包、计时器。</td>
+          </tr>
+          <tr>
+            <td>物资摄影</td>
+            <td>1</td>
+            <td>处理备用物资、拍摄关键画面、提醒合影站位。</td>
+            <td>备用任务袋、贴纸、马克笔、相机或手机。</td>
+          </tr>
+          <tr>
+            <td>导师</td>
+            <td>14</td>
+            <td>带领本组完成任务，抽加试卡，完成认证盖章。</td>
+            <td>本组任务袋、加试卡、认证章。</td>
+          </tr>
+          <tr>
+            <td>学生</td>
+            <td>约 110</td>
+            <td>在小队内完成选择、应对和口令生成。</td>
+            <td>装备卡、事件卡、通行牌。</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="panel">
+      <h2>场地布置</h2>
+      <div class="grid-3">
+        <article class="card">
+          <span class="tag green">小队区</span>
+          <h3>14 个小队点位</h3>
+          <p class="muted">每队一张桌或一块地贴区域。桌面提前放任务袋、三色牌、马克笔和通行牌。</p>
+        </article>
+        <article class="card">
+          <span class="tag gold">舞台区</span>
+          <h3>主持与认证</h3>
+          <p class="muted">主持人在前方。入境认证时，小队代表站到舞台前线，导师在队旁完成盖章。</p>
+        </article>
+        <article class="card">
+          <span class="tag red">入境墙</span>
+          <h3>通行牌集中展示</h3>
+          <p class="muted">用 KT 板、移动白板或墙面海报。标题可写“我们已进入九年级现场”。</p>
+        </article>
+      </div>
+      <div class="brief" style="margin-top: 14px;">
+        <p><strong>推荐场地：</strong>报告厅、多功能厅、体育馆都可以。优先选择能让 14 个小队同时围坐、能听清主持声音的空间。</p>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>85 分钟流程</h2>
+      <div class="timeline">
+        <div class="step">
+          <div class="time">0-5 分钟</div>
+          <div>
+            <div class="step-title">入场就位</div>
+            <p class="muted">学生按导师班进入小队区。导师清点人数，提醒学生先看桌面任务袋。</p>
+          </div>
+          <div class="owner">音乐：轻快入场曲</div>
+        </div>
+        <div class="step">
+          <div class="time">5-10 分钟</div>
+          <div>
+            <div class="step-title">发布入境任务</div>
+            <p class="muted">主持人说明当天任务：每个小队需要获得装备、处理事件、通过导师加试、喊入口令。</p>
+          </div>
+          <div class="owner">主持人：读入境通知</div>
+        </div>
+        <div class="step">
+          <div class="time">10-16 分钟</div>
+          <div>
+            <div class="step-title">九年级信号灯</div>
+            <p class="muted">主持人抛出 5 个判断题。小队举红黄绿牌，现场快速看见大家对九年级的第一反应。</p>
+          </div>
+          <div class="owner">道具：红黄绿牌</div>
+        </div>
+        <div class="step">
+          <div class="time">16-32 分钟</div>
+          <div>
+            <div class="step-title">任务一：装备市场</div>
+            <p class="muted">每队用 8 枚能量币购买 3 张装备卡。导师提醒学生把选择理由写到装备选择板上。</p>
+          </div>
+          <div class="owner">规则：8 分钟购买，4 分钟交换，4 分钟定稿</div>
+        </div>
+        <div class="step">
+          <div class="time">32-50 分钟</div>
+          <div>
+            <div class="step-title">任务二：事件盲盒</div>
+            <p class="muted">每队抽 1 张事件卡，用刚才买下的 3 件装备做出三步行动方案。</p>
+          </div>
+          <div class="owner">输出：事件 + 装备 + 三步行动</div>
+        </div>
+        <div class="step">
+          <div class="time">50-58 分钟</div>
+          <div>
+            <div class="step-title">任务三：导师加试</div>
+            <p class="muted">导师抽 1 张加试卡，对本组方案增加一个现实条件。学生补充备用方案。</p>
+          </div>
+          <div class="owner">导师：追问一句，等学生答</div>
+        </div>
+        <div class="step">
+          <div class="time">58-66 分钟</div>
+          <div>
+            <div class="step-title">生成入境口令</div>
+            <p class="muted">每队把处理经验压缩成一句短口令，写在通行牌最下方。全队练习喊一遍。</p>
+          </div>
+          <div class="owner">口令上限：20 个字</div>
+        </div>
+        <div class="step">
+          <div class="time">66-81 分钟</div>
+          <div>
+            <div class="step-title">入境认证</div>
+            <p class="muted">14 个小队依次亮相。每队亮装备、报事件、喊口令，导师盖章。</p>
+          </div>
+          <div class="owner">每队 40 秒</div>
+        </div>
+        <div class="step">
+          <div class="time">81-85 分钟</div>
+          <div>
+            <div class="step-title">全体入境</div>
+            <p class="muted">各队代表把通行牌贴上入境墙。全体合影，活动收束。</p>
+          </div>
+          <div class="owner">摄影：提前站位</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>开场与转场口令</h2>
+      <div class="grid-2">
+        <article class="card">
+          <span class="tag green">开场</span>
+          <h3>主持词</h3>
+          <div class="script">各位同学，今天我们用一场挑战进入九年级。每个导师班是一支入境小队。你们要买装备、解事件、过加试，最后拿到导师认证。准备好以后，打开桌上的任务袋。</div>
+        </article>
+        <article class="card">
+          <span class="tag gold">认证</span>
+          <h3>主持词</h3>
+          <div class="script">第 X 小队上场。请亮出你们的三件装备，报出你们抽到的事件。全队准备，喊出入境口令。导师认证，盖章。</div>
+        </article>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>任务一：装备市场规则</h2>
+      <div class="rule-line">
+        <strong>目标</strong>
+        <p class="muted">每队选出 3 件最想带进九年级的装备，并写出选择理由。</p>
+      </div>
+      <div class="rule-line">
+        <strong>发放物资</strong>
+        <p class="muted">12 张装备卡、8 枚能量币、1 张装备选择板、1 支粗马克笔。</p>
+      </div>
+      <div class="rule-line">
+        <strong>购买方式</strong>
+        <p class="muted">装备卡按 1-4 枚能量币标价。每队购买 3 张。买定后贴到装备选择板。</p>
+      </div>
+      <div class="rule-line">
+        <strong>交换时间</strong>
+        <p class="muted">主持人宣布交换市场开启后，相邻小队可以交换 1 张装备。双方导师在选择板上签名确认。</p>
+      </div>
+      <div class="cards" style="margin-top: 16px;">
+        <div class="mini-card">时间管理<br>4 币</div>
+        <div class="mini-card">抗挫力<br>4 币</div>
+        <div class="mini-card">求助能力<br>3 币</div>
+        <div class="mini-card">专注力<br>3 币</div>
+        <div class="mini-card">手机自控<br>3 币</div>
+        <div class="mini-card">错题复盘<br>3 币</div>
+        <div class="mini-card">好身体<br>2 币</div>
+        <div class="mini-card">朋友支持<br>2 币</div>
+        <div class="mini-card">情绪调节<br>2 币</div>
+        <div class="mini-card">表达勇气<br>2 币</div>
+        <div class="mini-card">幽默感<br>1 币</div>
+        <div class="mini-card">稳定睡眠<br>1 币</div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>任务二：事件盲盒规则</h2>
+      <div class="grid-2">
+        <article class="card">
+          <span class="tag red">事件卡样例</span>
+          <ul class="muted">
+            <li>第一次月考失利，心态很乱。</li>
+            <li>每天作业拖到很晚，第二天很困。</li>
+            <li>朋友关系影响学习节奏。</li>
+            <li>想努力，三天后又松掉。</li>
+            <li>上课听懂了，做题还是错。</li>
+            <li>手机一拿起来就停很久。</li>
+            <li>父母很焦虑，天天催。</li>
+            <li>觉得别人都在进步，自己没变化。</li>
+          </ul>
+        </article>
+        <article class="card">
+          <span class="tag green">输出模板</span>
+          <p class="muted">各队按这四行写在通行牌上：</p>
+          <ul class="muted">
+            <li>我们抽到的事件：________</li>
+            <li>我们使用的装备：________</li>
+            <li>第一步：________</li>
+            <li>第二步：________</li>
+            <li>第三步：________</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>任务三：导师加试卡</h2>
+      <div class="grid-3">
+        <article class="card"><span class="tag">加试 1</span><p class="muted">如果这件事发生在考试前一天，你们先处理哪一件事？</p></article>
+        <article class="card"><span class="tag">加试 2</span><p class="muted">如果第一次行动失败，你们第二次怎么调整？</p></article>
+        <article class="card"><span class="tag">加试 3</span><p class="muted">如果同伴之间出现分歧，你们用什么方法做决定？</p></article>
+        <article class="card"><span class="tag">加试 4</span><p class="muted">如果只剩 20 分钟，你们会保住哪一步？</p></article>
+        <article class="card"><span class="tag">加试 5</span><p class="muted">如果你想先找同伴支持，可以找谁、怎么开口？</p></article>
+        <article class="card"><span class="tag">加试 6</span><p class="muted">如果这件事连续发生一周，你们每天怎么记录变化？</p></article>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>入境口令生成</h2>
+      <div class="grid-2">
+        <article class="card">
+          <span class="tag green">口令模板</span>
+          <ul class="muted">
+            <li>遇到____，我们用____，一起____。</li>
+            <li>九年级，____先稳住，____再行动。</li>
+            <li>我们的入境口令是：____。</li>
+          </ul>
+        </article>
+        <article class="card">
+          <span class="tag gold">可参考口令</span>
+          <ul class="muted">
+            <li>乱了先排，难了就问。</li>
+            <li>翻车要复盘，卡住要求助。</li>
+            <li>先稳住，再行动。</li>
+            <li>九年级，一起扛，也一起赢。</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>物资清单</h2>
+      <div class="materials">
+        <article class="card">
+          <span class="tag green">每组 1 个任务袋，共 14 袋</span>
+          <ul class="checklist muted">
+            <li>装备卡 12 张</li>
+            <li>事件卡 8 张</li>
+            <li>加试卡 6 张</li>
+            <li>能量币 8 枚</li>
+            <li>红黄绿信号牌 1 套</li>
+            <li>装备选择板 1 张</li>
+            <li>入境通行牌 1 张</li>
+            <li>粗马克笔 2 支</li>
+            <li>导师认证贴或印章 1 套</li>
+          </ul>
+        </article>
+        <article class="card">
+          <span class="tag gold">全场物资</span>
+          <ul class="checklist muted">
+            <li>主持麦 1-2 个</li>
+            <li>音响设备</li>
+            <li>倒计时投影</li>
+            <li>入境墙背景板</li>
+            <li>备用任务袋 2 套</li>
+            <li>备用马克笔 10 支</li>
+            <li>胶带、蓝丁胶、剪刀</li>
+            <li>合影站位提示贴</li>
+            <li>背景音乐和提示音</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>当天推进卡</h2>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>时间点</th>
+            <th>主持提醒</th>
+            <th>导师动作</th>
+            <th>学生动作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>16 分钟</td>
+            <td>装备市场开启。</td>
+            <td>提醒学生先看价格，再决定。</td>
+            <td>讨论并购买 3 张装备。</td>
+          </tr>
+          <tr>
+            <td>24 分钟</td>
+            <td>交换市场开启。</td>
+            <td>帮助确认交换结果。</td>
+            <td>与邻组交换 1 张装备。</td>
+          </tr>
+          <tr>
+            <td>32 分钟</td>
+            <td>事件盲盒开启。</td>
+            <td>发事件卡，读题。</td>
+            <td>写出三步行动。</td>
+          </tr>
+          <tr>
+            <td>50 分钟</td>
+            <td>导师加试开始。</td>
+            <td>抽加试卡，追问。</td>
+            <td>补充备用方案。</td>
+          </tr>
+          <tr>
+            <td>58 分钟</td>
+            <td>生成入境口令。</td>
+            <td>帮学生压缩语言。</td>
+            <td>写口令，练一遍。</td>
+          </tr>
+          <tr>
+            <td>66 分钟</td>
+            <td>入境认证开始。</td>
+            <td>站到本队旁边，准备盖章。</td>
+            <td>亮装备，报事件，喊口令。</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <p class="footer-note">下一版可继续细化：装备卡视觉、通行牌版式、主持人完整台本、音频清单。</p>
+  </main>
+</body>
+</html>

@@ -1,0 +1,199 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1200" viewBox="0 0 1800 1200">
+  <defs>
+    <style>
+      .bg { fill: #fffdf8; }
+      .title { font: 700 42px "PingFang SC", "Microsoft YaHei", Arial, sans-serif; fill: #111827; }
+      .subtitle { font: 400 22px "PingFang SC", "Microsoft YaHei", Arial, sans-serif; fill: #4b5563; }
+      .panel { fill: #ffffff; stroke: #111827; stroke-width: 3; rx: 18; }
+      .panel-title { font: 700 25px "PingFang SC", "Microsoft YaHei", Arial, sans-serif; fill: #111827; }
+      .note { font: 400 18px "PingFang SC", "Microsoft YaHei", Arial, sans-serif; fill: #374151; }
+      .small { font: 400 15px "PingFang SC", "Microsoft YaHei", Arial, sans-serif; fill: #4b5563; }
+      .tiny { font: 400 13px "PingFang SC", "Microsoft YaHei", Arial, sans-serif; fill: #4b5563; }
+      .stage { fill: #f8fafc; stroke: #64748b; stroke-width: 2.5; }
+      .aud { fill: #f3f4f6; stroke: #9ca3af; stroke-width: 2; }
+      .aisle { fill: #ffffff; stroke: #cbd5e1; stroke-width: 1.5; stroke-dasharray: 8 8; }
+      .route { fill: none; stroke: #ef4444; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; marker-end: url(#arrow-red); }
+      .route-blue { fill: none; stroke: #2563eb; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; marker-end: url(#arrow-blue); }
+      .soft { stroke-dasharray: 5 7; }
+      .basket { fill: #fff7ed; stroke: #ea580c; stroke-width: 2; }
+      .helper { fill: #ffffff; stroke: #111827; stroke-width: 2; }
+      .red { fill: #fee2e2; stroke: #dc2626; color: #dc2626; }
+      .blue { fill: #dbeafe; stroke: #2563eb; color: #2563eb; }
+      .green { fill: #dcfce7; stroke: #16a34a; color: #16a34a; }
+      .yellow { fill: #fef3c7; stroke: #d97706; color: #d97706; }
+      .purple { fill: #ede9fe; stroke: #7c3aed; color: #7c3aed; }
+      .blackline { stroke: #111827; stroke-width: 2.2; stroke-linecap: round; fill: none; }
+      .tag { fill: #fff7ed; stroke: #fb923c; stroke-width: 2; rx: 10; }
+    </style>
+    <marker id="arrow-red" markerWidth="14" markerHeight="14" refX="11" refY="7" orient="auto">
+      <path d="M2,2 L12,7 L2,12 Z" fill="#ef4444"/>
+    </marker>
+    <marker id="arrow-blue" markerWidth="14" markerHeight="14" refX="11" refY="7" orient="auto">
+      <path d="M2,2 L12,7 L2,12 Z" fill="#2563eb"/>
+    </marker>
+    <g id="stick">
+      <circle cx="0" cy="-15" r="8" fill="currentColor"/>
+      <line x1="0" y1="-7" x2="0" y2="15" class="blackline"/>
+      <line x1="-12" y1="3" x2="12" y2="3" class="blackline"/>
+      <line x1="0" y1="15" x2="-10" y2="30" class="blackline"/>
+      <line x1="0" y1="15" x2="10" y2="30" class="blackline"/>
+    </g>
+  </defs>
+
+  <rect width="1800" height="1200" class="bg"/>
+  <text x="900" y="58" text-anchor="middle" class="title">《心愿便利贴》报告厅节目流程分镜图</text>
+  <text x="900" y="92" text-anchor="middle" class="subtitle">17位老师：语文3、数学3、英语4、科学4、社政3｜台上唱、通道发礼、回台定格</text>
+
+  <g transform="translate(80,115)">
+    <rect x="0" y="0" width="210" height="52" class="red" rx="12"/><text x="105" y="34" text-anchor="middle" class="note">语文 3</text>
+    <rect x="230" y="0" width="210" height="52" class="blue" rx="12"/><text x="335" y="34" text-anchor="middle" class="note">数学 3</text>
+    <rect x="460" y="0" width="210" height="52" class="green" rx="12"/><text x="565" y="34" text-anchor="middle" class="note">英语 4</text>
+    <rect x="690" y="0" width="210" height="52" class="yellow" rx="12"/><text x="795" y="34" text-anchor="middle" class="note">科学 4</text>
+    <rect x="920" y="0" width="210" height="52" class="purple" rx="12"/><text x="1025" y="34" text-anchor="middle" class="note">社政 3</text>
+    <rect x="1160" y="0" width="560" height="52" class="tag"/><text x="1440" y="34" text-anchor="middle" class="note">原则：不穿越座位、不逐个塞礼物、最后20秒必须回台</text>
+  </g>
+
+  <!-- Panel 1 -->
+  <g transform="translate(80,195)">
+    <rect width="400" height="290" class="panel"/>
+    <text x="20" y="38" class="panel-title">1 候场和道具</text>
+    <rect x="105" y="76" width="190" height="62" class="stage" rx="6"/><text x="200" y="114" text-anchor="middle" class="note">舞台</text>
+    <rect x="48" y="175" width="304" height="70" class="aud" rx="8"/><text x="200" y="218" text-anchor="middle" class="note">观众席</text>
+    <rect x="22" y="75" width="55" height="95" class="aisle" rx="6"/><text x="50" y="126" text-anchor="middle" class="tiny">左侧台</text>
+    <rect x="323" y="75" width="55" height="95" class="aisle" rx="6"/><text x="350" y="126" text-anchor="middle" class="tiny">右侧台</text>
+    <rect x="28" y="232" width="88" height="28" class="basket" rx="8"/><text x="72" y="252" text-anchor="middle" class="tiny">5个花篮</text>
+    <circle cx="325" cy="248" r="12" class="helper"/><text x="348" y="254" class="tiny">学生递篮</text>
+    <text x="22" y="160" class="small">前奏前：老师在两侧候场</text>
+    <text x="22" y="278" class="small">后勤先到位：音控、递篮、通道</text>
+  </g>
+
+  <!-- Panel 2 -->
+  <g transform="translate(510,195)">
+    <rect width="400" height="290" class="panel"/>
+    <text x="20" y="38" class="panel-title">2 前奏上台站位</text>
+    <rect x="35" y="70" width="330" height="120" class="stage" rx="8"/>
+    <text x="200" y="95" text-anchor="middle" class="small">舞台正面</text>
+    <path d="M20 128 C62 120,75 115,100 118" class="route-blue"/>
+    <path d="M380 128 C338 120,325 115,300 118" class="route-blue"/>
+    <g transform="translate(83,145)" class="red"><use href="#stick"/><use href="#stick" x="28"/><use href="#stick" x="56"/></g>
+    <g transform="translate(150,145)" class="blue"><use href="#stick"/><use href="#stick" x="28"/><use href="#stick" x="56"/></g>
+    <g transform="translate(220,145)" class="green"><use href="#stick"/><use href="#stick" x="26"/><use href="#stick" x="52"/><use href="#stick" x="78"/></g>
+    <g transform="translate(305,145)" class="yellow"><use href="#stick"/><use href="#stick" x="26"/><use href="#stick" x="52"/><use href="#stick" x="78"/></g>
+    <g transform="translate(82,238)">
+      <text x="0" y="0" class="tiny">从左到右：</text>
+      <text x="65" y="0" class="tiny">语文｜数学｜英语｜科学｜社政</text>
+    </g>
+    <text x="22" y="265" class="small">上台只走一次，先不拿花篮。</text>
+  </g>
+
+  <!-- Panel 3 -->
+  <g transform="translate(940,195)">
+    <rect width="400" height="290" class="panel"/>
+    <text x="20" y="38" class="panel-title">3 小组唱</text>
+    <rect x="35" y="70" width="330" height="132" class="stage" rx="8"/>
+    <line x1="100" y1="78" x2="100" y2="194" stroke="#cbd5e1" stroke-dasharray="5 5"/>
+    <line x1="165" y1="78" x2="165" y2="194" stroke="#cbd5e1" stroke-dasharray="5 5"/>
+    <line x1="230" y1="78" x2="230" y2="194" stroke="#cbd5e1" stroke-dasharray="5 5"/>
+    <line x1="295" y1="78" x2="295" y2="194" stroke="#cbd5e1" stroke-dasharray="5 5"/>
+    <text x="200" y="95" text-anchor="middle" class="small">唱到哪个组，哪个组向前半步</text>
+    <g transform="translate(72,166)" class="red"><use href="#stick"/><use href="#stick" x="18"/><use href="#stick" x="36"/></g>
+    <g transform="translate(135,166)" class="blue"><use href="#stick"/><use href="#stick" x="18"/><use href="#stick" x="36"/></g>
+    <g transform="translate(196,146)" class="green"><use href="#stick"/><use href="#stick" x="18"/><use href="#stick" x="36"/><use href="#stick" x="54"/></g>
+    <g transform="translate(270,166)" class="yellow"><use href="#stick"/><use href="#stick" x="18"/><use href="#stick" x="36"/><use href="#stick" x="54"/></g>
+    <g transform="translate(334,166)" class="purple"><use href="#stick"/><use href="#stick" x="18"/><use href="#stick" x="36"/></g>
+    <path d="M220 173 L220 138" class="route-blue soft"/>
+    <text x="22" y="228" class="small">歌词标法：主歌A/主歌B/副歌A/副歌B/第二段。</text>
+    <text x="22" y="256" class="small">其他组原地打拍、轻摆，不抢中央。</text>
+  </g>
+
+  <!-- Panel 4 -->
+  <g transform="translate(1370,195)">
+    <rect width="350" height="290" class="panel"/>
+    <text x="20" y="38" class="panel-title">4 全体合唱</text>
+    <rect x="32" y="75" width="286" height="130" class="stage" rx="8"/>
+    <path d="M60 162 C120 112,230 112,292 162" fill="none" stroke="#94a3b8" stroke-width="2" stroke-dasharray="6 6"/>
+    <g transform="translate(70,168)" class="red"><use href="#stick"/><use href="#stick" x="18"/><use href="#stick" x="36"/></g>
+    <g transform="translate(128,145)" class="blue"><use href="#stick"/><use href="#stick" x="18"/><use href="#stick" x="36"/></g>
+    <g transform="translate(180,132)" class="green"><use href="#stick"/><use href="#stick" x="18"/><use href="#stick" x="36"/><use href="#stick" x="54"/></g>
+    <g transform="translate(235,145)" class="yellow"><use href="#stick"/><use href="#stick" x="18"/><use href="#stick" x="36"/><use href="#stick" x="54"/></g>
+    <g transform="translate(266,168)" class="purple"><use href="#stick"/><use href="#stick" x="18"/><use href="#stick" x="36"/></g>
+    <text x="22" y="232" class="small">副歌：站成浅弧线。</text>
+    <text x="22" y="260" class="small">动作：便利贴轻挥，幅度小。</text>
+  </g>
+
+  <!-- Panel 5 -->
+  <g transform="translate(80,525)">
+    <rect width="400" height="290" class="panel"/>
+    <text x="20" y="38" class="panel-title">5 间奏取花篮</text>
+    <rect x="35" y="72" width="330" height="105" class="stage" rx="8"/>
+    <text x="200" y="98" text-anchor="middle" class="small">每组1人留台继续唱</text>
+    <g transform="translate(80,142)" class="red"><use href="#stick"/></g>
+    <g transform="translate(140,142)" class="blue"><use href="#stick"/></g>
+    <g transform="translate(200,142)" class="green"><use href="#stick"/></g>
+    <g transform="translate(260,142)" class="yellow"><use href="#stick"/></g>
+    <g transform="translate(320,142)" class="purple"><use href="#stick"/></g>
+    <path d="M115 150 C80 188,55 200,45 222" class="route"/>
+    <path d="M285 150 C320 188,345 200,355 222" class="route"/>
+    <rect x="35" y="220" width="82" height="32" class="basket" rx="8"/><text x="76" y="242" text-anchor="middle" class="tiny">左侧篮</text>
+    <rect x="283" y="220" width="82" height="32" class="basket" rx="8"/><text x="324" y="242" text-anchor="middle" class="tiny">右侧篮</text>
+    <text x="22" y="275" class="small">其余12人取篮：语2、数2、英3、科3、社2。</text>
+  </g>
+
+  <!-- Panel 6 -->
+  <g transform="translate(510,525)">
+    <rect width="400" height="290" class="panel"/>
+    <text x="20" y="38" class="panel-title">6 尾副歌下台发礼</text>
+    <rect x="145" y="62" width="110" height="45" class="stage" rx="6"/><text x="200" y="91" text-anchor="middle" class="small">舞台</text>
+    <rect x="48" y="142" width="88" height="105" class="aud" rx="8"/><rect x="156" y="142" width="88" height="105" class="aud" rx="8"/><rect x="264" y="142" width="88" height="105" class="aud" rx="8"/>
+    <rect x="137" y="128" width="18" height="135" class="aisle"/><rect x="245" y="128" width="18" height="135" class="aisle"/>
+    <path d="M128 105 C98 128,82 150,75 178" class="route"/>
+    <path d="M272 105 C302 128,318 150,325 178" class="route"/>
+    <g transform="translate(72,202)" class="red"><use href="#stick"/></g>
+    <g transform="translate(325,202)" class="yellow"><use href="#stick"/></g>
+    <circle cx="148" cy="267" r="11" class="helper"/><text x="165" y="272" class="tiny">学生</text>
+    <circle cx="254" cy="267" r="11" class="helper"/><text x="271" y="272" class="tiny">学生</text>
+    <text x="22" y="118" class="small">沿通道发给排头，再由排头往里传。</text>
+    <text x="22" y="280" class="small">不进座位、不逐个塞、不停留拍照。</text>
+  </g>
+
+  <!-- Panel 7 -->
+  <g transform="translate(940,525)">
+    <rect width="400" height="290" class="panel"/>
+    <text x="20" y="38" class="panel-title">7 最后20秒回台</text>
+    <rect x="145" y="64" width="110" height="48" class="stage" rx="6"/><text x="200" y="94" text-anchor="middle" class="small">舞台</text>
+    <rect x="48" y="148" width="304" height="90" class="aud" rx="8"/><text x="200" y="198" text-anchor="middle" class="note">观众席</text>
+    <path d="M65 188 C88 140,125 115,170 98" class="route-blue"/>
+    <path d="M335 188 C312 140,275 115,230 98" class="route-blue"/>
+    <circle cx="105" cy="252" r="11" class="helper"/><text x="125" y="258" class="tiny">学生收空篮</text>
+    <circle cx="294" cy="252" r="11" class="helper"/><text x="314" y="258" class="tiny">学生收空篮</text>
+    <text x="22" y="126" class="small">听到尾声提示：停止发礼，原路返回。</text>
+    <text x="22" y="278" class="small">花篮交给侧台学生，老师站回本组。</text>
+  </g>
+
+  <!-- Panel 8 -->
+  <g transform="translate(1370,525)">
+    <rect width="350" height="290" class="panel"/>
+    <text x="20" y="38" class="panel-title">8 Ending</text>
+    <rect x="32" y="72" width="286" height="118" class="stage" rx="8"/>
+    <g transform="translate(65,152)" class="red"><use href="#stick"/><use href="#stick" x="18"/><use href="#stick" x="36"/></g>
+    <g transform="translate(120,152)" class="blue"><use href="#stick"/><use href="#stick" x="18"/><use href="#stick" x="36"/></g>
+    <g transform="translate(175,152)" class="green"><use href="#stick"/><use href="#stick" x="18"/><use href="#stick" x="36"/><use href="#stick" x="54"/></g>
+    <g transform="translate(230,152)" class="yellow"><use href="#stick"/><use href="#stick" x="18"/><use href="#stick" x="36"/><use href="#stick" x="54"/></g>
+    <g transform="translate(280,152)" class="purple"><use href="#stick"/><use href="#stick" x="18"/><use href="#stick" x="36"/></g>
+    <text x="175" y="222" text-anchor="middle" class="note">最后一句全体唱</text>
+    <text x="175" y="252" text-anchor="middle" class="note">举便利贴/花篮定格2秒</text>
+    <text x="175" y="280" text-anchor="middle" class="note">鞠躬，主持人接话</text>
+  </g>
+
+  <!-- Footer: helper map -->
+  <g transform="translate(80,870)">
+    <rect x="0" y="0" width="1640" height="220" class="panel"/>
+    <text x="24" y="42" class="panel-title">学生后勤一眼看懂</text>
+    <rect x="34" y="72" width="220" height="110" class="stage" rx="8"/><text x="144" y="132" text-anchor="middle" class="note">音控 / 歌词字幕 2人</text>
+    <rect x="300" y="72" width="220" height="110" class="stage" rx="8"/><text x="410" y="118" text-anchor="middle" class="note">舞台左侧递篮 1人</text><text x="410" y="148" text-anchor="middle" class="note">舞台右侧递篮 1人</text>
+    <rect x="566" y="72" width="260" height="110" class="stage" rx="8"/><text x="696" y="118" text-anchor="middle" class="note">通道引导 4人</text><text x="696" y="148" text-anchor="middle" class="small">防止站起、围堵、逆行</text>
+    <rect x="872" y="72" width="300" height="110" class="stage" rx="8"/><text x="1022" y="118" text-anchor="middle" class="note">礼品传递协助 5人</text><text x="1022" y="148" text-anchor="middle" class="small">每区1人，帮排头往里传</text>
+    <rect x="1218" y="72" width="220" height="110" class="stage" rx="8"/><text x="1328" y="118" text-anchor="middle" class="note">摄影录像 1-2人</text><text x="1328" y="148" text-anchor="middle" class="small">重点拍发礼和定格</text>
+    <rect x="1478" y="72" width="130" height="110" class="tag"/><text x="1543" y="112" text-anchor="middle" class="note">口令</text><text x="1543" y="142" text-anchor="middle" class="small">回台！</text>
+  </g>
+</svg>

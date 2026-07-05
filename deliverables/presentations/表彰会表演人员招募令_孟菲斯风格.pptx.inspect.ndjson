@@ -1,0 +1,15 @@
+{"kind":"deck","id":"pr/bdmoqd","name":"Deck"}
+{"kind":"layout","layoutId":"73f2e81f-034a-4348-bb40-c1cc0f8ee61b","name":"Master","type":"master"}
+{"kind":"layout","layoutId":"2e21de88-edf5-426a-8103-c574d90d0946","name":"Title Slide","type":"title"}
+{"kind":"slide","id":"sl/f0gybx","slide":1,"title":"表彰会舞台招募","textShapes":9}
+{"kind":"textbox","id":"sh/xs72x4na","slide":1,"name":"eyebrow","text":"表彰会舞台招募","textPreview":"表彰会舞台招募","textChars":7,"textLines":1,"bbox":[86,82,360,38]}
+{"kind":"textbox","id":"sh/87ed8bat","slide":1,"name":"main-title","text":"表演人员\n招募令","textPreview":"表演人员 | 招募令","textChars":8,"textLines":2,"bbox":[82,136,570,178]}
+{"kind":"textbox","id":"sh/je9cvixc","slide":1,"name":"main-subtitle","text":"把你的节目带上舞台，\n为优秀点燃掌声。","textPreview":"把你的节目带上舞台， | 为优秀点燃掌声。","textChars":19,"textLines":2,"bbox":[86,334,620,92]}
+{"kind":"textbox","id":"sh/qtcj6tov","slide":1,"name":"program-types","text":"歌唱 / 舞蹈 / 朗诵 / 器乐 / 情景剧 / 创意节目","textPreview":"歌唱 / 舞蹈 / 朗诵 / 器乐 / 情景剧 / 创意节目","textChars":30,"textLines":1,"bbox":[88,462,690,42]}
+{"kind":"textbox","id":"sh/1gvy90je","slide":1,"name":"open-note","text":"个人、小组都可以，有初步想法就可以来报名。","textPreview":"个人、小组都可以，有初步想法就可以来报名。","textChars":21,"textLines":1,"bbox":[90,515,650,38]}
+{"kind":"textbox","id":"sh/8z25kb6x","slide":1,"name":"signup-title","text":"报名信息","textPreview":"报名信息","textChars":4,"textLines":1,"bbox":[804,168,260,48]}
+{"kind":"textbox","id":"sh/fa9w3m94","slide":1,"name":"signup-body","text":"招募对象\n有表演意愿的同学或小组\n\n节目要求\n内容积极\n建议 3-5 分钟\n能配合彩排\n\n报名方式\n扫码报名 / 联系负责老师\n报名截止：____ 月 ____ 日","textPreview":"招募对象 | 有表演意愿的同学或小组 |  | 节目要求 | 内容积极 | 建议 3-5 分钟 | 能配合彩排 |  | 报名方式 | 扫码报名 / 联系负责老师 | 报名截止：____ 月 ____ 日","textChars":82,"textLines":11,"bbox":[806,242,360,310]}
+{"kind":"textbox","id":"sh/qpg3ex0n","slide":1,"name":"qr-placeholder","text":"此处放\n报名二维码","textPreview":"此处放 | 报名二维码","textChars":9,"textLines":2,"bbox":[1046,526,150,72]}
+{"kind":"textbox","id":"sh/wjudg7ad","slide":1,"name":"staff-note","text":"其他现场工作报名：金以柔、金芷晔、周埕锐、葛家铭","textPreview":"其他现场工作报名：金以柔、金芷晔、周埕锐、葛家铭","textChars":24,"textLines":1,"bbox":[92,630,820,30]}
+{"kind":"image","id":"im/b6xkf6dc","slide":1,"name":"","alt":"孟菲斯风格表演招募背景","bbox":[0,0,1280,720]}
+{"kind":"notes","id":"nt/f0gybx","slide":1,"text":""}

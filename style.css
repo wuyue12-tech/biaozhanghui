@@ -1160,6 +1160,52 @@ img.is-missing + .image-fallback {
   animation: closingFinal 1.6s ease-out 3.2s both;
 }
 
+.closing-staff {
+  margin-top: 1.4vw;
+  padding: 1.1vw 1.25vw;
+  border: 1px solid rgba(255, 217, 122, 0.24);
+  border-radius: 1vw;
+  background: rgba(9, 15, 30, 0.7);
+  box-shadow: 0 0 24px rgba(248, 194, 74, 0.16);
+  backdrop-filter: blur(10px);
+}
+
+.closing-staff-title {
+  margin: 0 0 0.7vw;
+  color: var(--gold-pale);
+  font-size: 1.02vw;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.closing-staff-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.8vw 0.95vw;
+}
+
+.closing-staff-item {
+  padding: 0.7vw 0.8vw;
+  border-radius: 0.8vw;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 217, 122, 0.12);
+}
+
+.closing-staff-role {
+  margin: 0 0 0.25vw;
+  color: var(--gold-soft);
+  font-size: 0.9vw;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.closing-staff-names {
+  margin: 0;
+  color: var(--white);
+  font-size: 1.02vw;
+  line-height: 1.45;
+}
+
 .closing-star-gather {
   position: absolute;
   inset: 0;

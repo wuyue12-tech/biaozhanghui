@@ -1,0 +1,42 @@
+%%{init: {"theme": "base", "themeVariables": {"fontFamily": "Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif", "primaryColor": "#f8fafc", "primaryTextColor": "#102033", "primaryBorderColor": "#64748b", "lineColor": "#64748b"}}}%%
+flowchart TD
+  A(["方案漏洞检查<br/>看哪里最容易不确定"]) --> B["规则理解"]
+  A --> C["现场动线"]
+  A --> D["学生参与"]
+  A --> E["家长介入"]
+  A --> F["导师判断"]
+  A --> G["时间收束"]
+
+  B --> B1["风险<br/>学生只知道跑和传球<br/>不理解为何拿卡"]:::risk
+  B1 --> B2["控制点<br/>主持只讲一句规则<br/>完成挑战 解锁卡包 产出行动牌"]:::control
+
+  C --> C1["风险<br/>14队同时接力<br/>第三关42名代表移动"]:::risk
+  C1 --> C2["控制点<br/>接力只走本队正前方直线<br/>三方支援按路线卡走"]:::control
+
+  D --> D1["风险<br/>强势学生包办<br/>弱队成员旁观"]:::risk
+  D1 --> D2["控制点<br/>6人接力<br/>7人触球<br/>3名代表分头支援"]:::control
+
+  E --> E1["风险<br/>家长长篇指导<br/>把学生行动改成家长期待"]:::risk
+  E1 --> E2["控制点<br/>家长只补一句<br/>九年级我愿意在____时帮你____"]:::control
+
+  F --> F1["风险<br/>导师验收标准不一<br/>认证变成盖章"]:::risk
+  F1 --> F2["控制点<br/>红袋/蓝袋/金袋各有验收口令<br/>认证三问"]:::control
+
+  G --> G1["风险<br/>入境墙拥堵<br/>荣誉点亮拖时"]:::risk
+  G1 --> G2["控制点<br/>每次2-3队上墙<br/>基础通关加多项荣誉"]:::control
+
+  B2 --> H["当前仍需现场确认"]
+  C2 --> H
+  D2 --> H
+  E2 --> H
+  F2 --> H
+  G2 --> H
+
+  H --> H1["篮球馆实际尺寸与14队间距"]:::open
+  H --> H2["家长人数与观察区容量"]:::open
+  H --> H3["导师是否提前20分钟能看懂岗位"]:::open
+  H --> H4["软球数量和支援路线卡是否提前到位"]:::open
+
+  classDef risk fill:#fff1f2,stroke:#e11d48,color:#7f1d1d,stroke-width:2px;
+  classDef control fill:#ecfdf5,stroke:#059669,color:#064e3b,stroke-width:2px;
+  classDef open fill:#fffbeb,stroke:#d97706,color:#78350f,stroke-width:2px;

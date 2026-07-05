@@ -1,0 +1,65 @@
+%%{init: {"theme": "base", "themeVariables": {"fontFamily": "Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif", "primaryColor": "#eef6ff", "primaryTextColor": "#102033", "primaryBorderColor": "#4b8bbe", "lineColor": "#5b6470", "secondaryColor": "#f7fafc", "tertiaryColor": "#fff7ed"}}}%%
+flowchart LR
+  Start(["前期共创<br/>学生原句进入卡包"]) --> Pack["任务包制作<br/>红袋/蓝袋/金袋<br/>行动牌/认证卡/路线卡"]
+  Pack --> Open["0-12 分钟<br/>入场集结与规则发布"]
+
+  subgraph S["学生小队主线"]
+    direction LR
+    S1["第一关<br/>6人接力取回信号碎片"]
+    S2["按三类摆放<br/>学习压力/时间管理/关系支持<br/>每类说一句理由"]
+    S3["选择1个真实信号<br/>贴入行动牌"]
+    S4["第二关<br/>10次传球<br/>至少7人触球"]
+    S5["选择2张行动卡<br/>写清谁做/何时做/怎么检查"]
+    S6["加压调整<br/>把行动写到能立刻执行"]
+    S7["第三关<br/>3名代表按路线卡出发"]
+    S8["带回同伴/家长/导师支持"]
+    S9["完成入境行动牌"]
+  end
+
+  subgraph T["导师判断线"]
+    direction LR
+    T1{"红袋解锁?<br/>6张碎片分三类<br/>每类有理由"}
+    T2{"蓝袋解锁?<br/>10次传球<br/>7人触球<br/>行动三格写满"}
+    T3{"金袋解锁?<br/>三方支持齐全"}
+    T4{"导师认证三问<br/>真实信号?<br/>两条行动?<br/>最需要支持?"}
+  end
+
+  subgraph P["家长与支援线"]
+    direction LR
+    P1["同伴支援<br/>补一句互助动作"]
+    P2["家长支援<br/>只补一句家庭支持"]
+    P3["导师支援<br/>给出九年级支持入口"]
+  end
+
+  subgraph O["主持/运行控制线"]
+    direction LR
+    O1["地贴定位<br/>队长保管卡袋"]
+    O2["接力通道<br/>各队正前方直线"]
+    O3["传球区域<br/>球回本队线继续"]
+    O4["三方支援点<br/>分布篮球馆三边"]
+    O5["入境墙<br/>每次2-3队上墙"]
+  end
+
+  Open --> O1 --> S1 --> O2 --> S2 --> T1
+  T1 -- "通过" --> S3
+  T1 -- "卡住" --> R1["预案口令<br/>按三类放好<br/>每类说一句理由"]:::risk --> T1
+
+  S3 --> S4 --> O3 --> T2
+  T2 -- "通过" --> S5 --> S6
+  T2 -- "卡住" --> R2["预案口令<br/>下一球传给未触球队员<br/>行动补成三格"]:::risk --> T2
+
+  S6 --> S7 --> O4
+  O4 --> P1 --> S8
+  O4 --> P2 --> S8
+  O4 --> P3 --> S8
+  S8 --> T3
+  T3 -- "通过" --> S9 --> T4
+  T3 -- "卡住" --> R3["预案口令<br/>家长只补一句支持<br/>学生带回队里完成"]:::risk --> T3
+
+  T4 -- "通过" --> End["73-85 分钟<br/>贴入境章<br/>入境墙与荣誉点亮"]
+  T4 -- "卡住" --> R4["现场补问<br/>信号/行动/支持<br/>答清楚再认证"]:::risk --> T4
+  End --> Use["活动后续<br/>导师谈话/家校沟通<br/>九年级准备清单"]
+
+  classDef risk fill:#fff1f2,stroke:#e11d48,color:#7f1d1d,stroke-width:2px;
+  classDef done fill:#ecfdf5,stroke:#059669,color:#064e3b,stroke-width:2px;
+  class End,Use done;

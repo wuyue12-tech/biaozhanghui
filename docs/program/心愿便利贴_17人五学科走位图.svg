@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="900" viewBox="0 0 1400 900">
+  <defs>
+    <style>
+      .title { font: 700 36px "PingFang SC", "Microsoft YaHei", Arial, sans-serif; fill: #172033; }
+      .subtitle { font: 400 20px "PingFang SC", "Microsoft YaHei", Arial, sans-serif; fill: #4b5563; }
+      .label { font: 700 18px "PingFang SC", "Microsoft YaHei", Arial, sans-serif; fill: #111827; }
+      .small { font: 400 16px "PingFang SC", "Microsoft YaHei", Arial, sans-serif; fill: #4b5563; }
+      .person { stroke: #111827; stroke-width: 2; }
+      .stage { fill: #f8fafc; stroke: #94a3b8; stroke-width: 3; }
+      .aud { fill: #e5e7eb; stroke: #9ca3af; stroke-width: 2; }
+      .lane { stroke: #cbd5e1; stroke-width: 2; stroke-dasharray: 8 8; }
+      .arrow { stroke: #334155; stroke-width: 3; fill: none; marker-end: url(#arrow); }
+      .tip { fill: #fff7ed; stroke: #fb923c; stroke-width: 2; rx: 10; }
+      .cn { fill: #fecaca; }
+      .math { fill: #bfdbfe; }
+      .eng { fill: #bbf7d0; }
+      .sci { fill: #fde68a; }
+      .soc { fill: #ddd6fe; }
+    </style>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M2,2 L10,6 L2,10 Z" fill="#334155" />
+    </marker>
+  </defs>
+
+  <rect width="1400" height="900" fill="#ffffff"/>
+  <text x="700" y="58" text-anchor="middle" class="title">《心愿便利贴》17 人五学科走位图</text>
+  <text x="700" y="92" text-anchor="middle" class="subtitle">默认：语文3、数学4、英语3、科学4、社政3。观众在下方，五个学科各走自己的通道。</text>
+
+  <rect x="90" y="135" width="1220" height="590" class="stage" rx="12"/>
+  <text x="700" y="168" text-anchor="middle" class="label">舞台 / 篮球馆表演区</text>
+
+  <line x1="210" y1="200" x2="210" y2="690" class="lane"/>
+  <line x1="455" y1="200" x2="455" y2="690" class="lane"/>
+  <line x1="700" y1="200" x2="700" y2="690" class="lane"/>
+  <line x1="945" y1="200" x2="945" y2="690" class="lane"/>
+  <line x1="1190" y1="200" x2="1190" y2="690" class="lane"/>
+
+  <text x="210" y="215" text-anchor="middle" class="label">语文</text>
+  <text x="455" y="215" text-anchor="middle" class="label">数学</text>
+  <text x="700" y="215" text-anchor="middle" class="label">英语</text>
+  <text x="945" y="215" text-anchor="middle" class="label">科学</text>
+  <text x="1190" y="215" text-anchor="middle" class="label">社政</text>
+
+  <!-- Back row -->
+  <circle cx="210" cy="300" r="34" class="person cn"/><text x="210" y="307" text-anchor="middle" class="label">语3</text>
+  <circle cx="420" cy="300" r="34" class="person math"/><text x="420" y="307" text-anchor="middle" class="label">数3</text>
+  <circle cx="490" cy="300" r="34" class="person math"/><text x="490" y="307" text-anchor="middle" class="label">数4</text>
+  <circle cx="700" cy="300" r="34" class="person eng"/><text x="700" y="307" text-anchor="middle" class="label">英3</text>
+  <circle cx="910" cy="300" r="34" class="person sci"/><text x="910" y="307" text-anchor="middle" class="label">科3</text>
+  <circle cx="980" cy="300" r="34" class="person sci"/><text x="980" y="307" text-anchor="middle" class="label">科4</text>
+  <circle cx="1190" cy="300" r="34" class="person soc"/><text x="1190" y="307" text-anchor="middle" class="label">社3</text>
+
+  <!-- Middle row -->
+  <circle cx="210" cy="430" r="34" class="person cn"/><text x="210" y="437" text-anchor="middle" class="label">语2</text>
+  <circle cx="455" cy="430" r="34" class="person math"/><text x="455" y="437" text-anchor="middle" class="label">数2</text>
+  <circle cx="700" cy="430" r="34" class="person eng"/><text x="700" y="437" text-anchor="middle" class="label">英2</text>
+  <circle cx="945" cy="430" r="34" class="person sci"/><text x="945" y="437" text-anchor="middle" class="label">科2</text>
+  <circle cx="1190" cy="430" r="34" class="person soc"/><text x="1190" y="437" text-anchor="middle" class="label">社2</text>
+
+  <!-- Front row -->
+  <circle cx="210" cy="570" r="38" class="person cn"/><text x="210" y="578" text-anchor="middle" class="label">语1</text>
+  <circle cx="455" cy="570" r="38" class="person math"/><text x="455" y="578" text-anchor="middle" class="label">数1</text>
+  <circle cx="700" cy="570" r="38" class="person eng"/><text x="700" y="578" text-anchor="middle" class="label">英1</text>
+  <circle cx="945" cy="570" r="38" class="person sci"/><text x="945" y="578" text-anchor="middle" class="label">科1</text>
+  <circle cx="1190" cy="570" r="38" class="person soc"/><text x="1190" y="578" text-anchor="middle" class="label">社1</text>
+
+  <path d="M210 535 C210 505,210 485,210 465" class="arrow"/>
+  <path d="M455 535 C455 505,455 485,455 465" class="arrow"/>
+  <path d="M700 535 C700 505,700 485,700 465" class="arrow"/>
+  <path d="M945 535 C945 505,945 485,945 465" class="arrow"/>
+  <path d="M1190 535 C1190 505,1190 485,1190 465" class="arrow"/>
+  <text x="700" y="650" text-anchor="middle" class="small">副歌：前排五名代表向前一步，中排原地，后排向外侧半步；全程不跨学科通道。</text>
+
+  <rect x="90" y="750" width="1220" height="90" class="aud" rx="10"/>
+  <text x="700" y="805" text-anchor="middle" class="label">观众 / 学生区</text>
+
+  <rect x="90" y="845" width="1220" height="40" class="tip"/>
+  <text x="700" y="871" text-anchor="middle" class="small">结尾定格：五名学科代表举五色便利贴，中后排举星星灯或便利贴，停 3 秒后接合影。</text>
+</svg>
