@@ -91,6 +91,14 @@ window.EVENT_DATA = {
       video: "video/特别的人.mp4"
     },
     {
+      type: "performance",
+      menuTitle: "节目：心愿便利贴",
+      title: "心愿便利贴",
+      performer: "全体教师",
+      subtitle: "表演节目",
+      video: "video/心愿便利贴.mp4"
+    },
+    {
       type: "breath",
       menuTitle: "学科优胜奖",
       title: "学科优胜奖",
@@ -261,20 +269,6 @@ window.EVENT_DATA = {
       title: "环球自然日浙江赛区一等奖",
       subtitle: "获奖者颁奖",
       names: ["许嘉惠", "刘馨钰"]
-    },
-    {
-      type: "breath",
-      menuTitle: "教师节目",
-      title: "教师节目",
-      subtitle: "把祝福唱给即将出发的你们"
-    },
-    {
-      type: "performance",
-      menuTitle: "节目：心愿便利贴",
-      title: "心愿便利贴",
-      performer: "全体教师",
-      subtitle: "表演节目",
-      video: "video/心愿便利贴.mp4"
     },
     {
       type: "breath",
